@@ -137,6 +137,23 @@ void fillBuffer(QIODevice &device, qint64 length, void *buffer, size_t bufferSiz
     }
 }
 
+void peekToBuffer(QIODevice &device, qint64 length, void *buffer, size_t bufferSize)
+{
+    if(length < Q_INT64_C(0))
+    {
+        throw std::runtime_error("Invalid length parameter value");
+    }
+    if(bufferSize < static_cast<size_t>(length))
+    {
+        throw std::runtime_error("Buffer is too small");
+    }
+    qint64 bytesRead = device.peek(reinterpret_cast<char *> (buffer), length);
+    if (bytesRead != length)
+    {
+        throw std::runtime_error("Unable to read file");
+    }
+}
+
 QString readFixedLengthString(QIODevice &device, uint length, QTextCodec *codec)
 {
     if(codec == NULL)

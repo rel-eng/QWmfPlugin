@@ -22,6 +22,7 @@
 #include "WmfHandler.h"
 #include "Internal/MetaPlaceableRecord.h"
 #include "Internal/MetaHeaderRecord.h"
+#include "Internal/ConcurrentRecordLoader.h"
 
 WmfHandler::WmfHandler()
 {
@@ -58,11 +59,24 @@ bool WmfHandler::read(QImage *image)
     qreal heightLU = static_cast<qreal>(qAbs(header.getBottom() - header.getTop()));
     qreal tpi = qAbs(static_cast<qreal>(header.getTpi()));
     int width = qRound((widthLU / tpi) * static_cast<qreal>(72.0));
-    int height = qRound((widthLU / tpi) * static_cast<qreal>(72.0));
+    int height = qRound((heightLU / tpi) * static_cast<qreal>(72.0));
     QImage result(width, height, QImage::Format_ARGB32);
     result.fill(0);
     result.setDotsPerMeterX(2835);
     result.setDotsPerMeterY(2835);
+    bool invalidRecordsData = false;
+    try
+    {
+        ConcurrentRecordLoader recordLoader(*device());
+    }
+    catch(...)
+    {
+        invalidRecordsData = true;
+    }
+    if(invalidRecordsData)
+    {
+        return false;
+    }
     *image = result;
     return true;
 }
@@ -77,25 +91,30 @@ QVariant WmfHandler::option(ImageOption option) const
     if (option == Size)
     {
         QByteArray bytes = device()->peek(22);
-        QBuffer headerBuf(&bytes);
-        MetaPlaceableRecord header;
-        bool invalidHeader = false;
-        try
+        if(bytes.size() == 22)
         {
-            header = MetaPlaceableRecord(headerBuf);
-        }
-        catch(...)
-        {
-            invalidHeader = true;
-        }
-        if(!invalidHeader)
-        {
-            qreal widthLU = static_cast<qreal>(qAbs(header.getRight() - header.getLeft()));
-            qreal heightLU = static_cast<qreal>(qAbs(header.getBottom() - header.getTop()));
-            qreal tpi = qAbs(static_cast<qreal>(header.getTpi()));
-            int width = qRound((widthLU / tpi) * static_cast<qreal>(72.0));
-            int height = qRound((widthLU / tpi) * static_cast<qreal>(72.0));
-            return QSize(width, height);
+            QBuffer headerBuf(&bytes);
+            headerBuf.open(QIODevice::ReadOnly);
+            MetaPlaceableRecord header;
+            bool invalidHeader = false;
+            try
+            {
+                header = MetaPlaceableRecord(headerBuf);
+            }
+            catch(...)
+            {
+                invalidHeader = true;
+            }
+            headerBuf.close();
+            if(!invalidHeader)
+            {
+                qreal widthLU = static_cast<qreal>(qAbs(header.getRight() - header.getLeft()));
+                qreal heightLU = static_cast<qreal>(qAbs(header.getBottom() - header.getTop()));
+                qreal tpi = qAbs(static_cast<qreal>(header.getTpi()));
+                int width = qRound((widthLU / tpi) * static_cast<qreal>(72.0));
+                int height = qRound((heightLU / tpi) * static_cast<qreal>(72.0));
+                return QSize(width, height);
+            }
         }
     }
     return QVariant();

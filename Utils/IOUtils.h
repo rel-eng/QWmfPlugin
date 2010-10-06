@@ -38,6 +38,7 @@ qint32 readSignedDWord(QIODevice &device);
 quint64 readUnsignedQWord(QIODevice &device);
 qint64 readSignedQWord(QIODevice &device);
 void fillBuffer(QIODevice &device, qint64 length, void *buffer, size_t bufferSize);
+void peekToBuffer(QIODevice &device, qint64 length, void *buffer, size_t bufferSize);
 QString readFixedLengthString(QIODevice &device, uint length, QTextCodec *codec);
 QString readNullTerminatedString(QIODevice &device, qint64 maxSize, QTextCodec *codec, qint64 &length);
 QRgb readRGBDword(QIODevice &device);
