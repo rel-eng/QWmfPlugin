@@ -31,7 +31,10 @@ HEADERS = WmfHandler.h \
     Internal/MetaEofRecord.h \
     Internal/PaletteObject.h \
     Internal/Bitmap16Object.h \
-    Internal/ConcurrentRecordLoader.h
+    Internal/ConcurrentRecordLoader.h \
+    Internal/MetaAnimatepaletteRecord.h \
+    Internal/MetaExcludecliprectRecord.h \
+    Internal/MetaIntersectcliprectRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -41,7 +44,10 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaEofRecord.cpp \
     Internal/PaletteObject.cpp \
     Internal/Bitmap16Object.cpp \
-    Internal/ConcurrentRecordLoader.cpp
+    Internal/ConcurrentRecordLoader.cpp \
+    Internal/MetaAnimatepaletteRecord.cpp \
+    Internal/MetaExcludecliprectRecord.cpp \
+    Internal/MetaIntersectcliprectRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

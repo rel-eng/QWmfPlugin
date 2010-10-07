@@ -30,7 +30,7 @@
 enum PaletteEntryFlag : quint8
 {
     //Запись используется для анимирования палитры
-    //Не влияет на резултирующее изображение?
+    //Записи, у которых установлен этот флаг, изменяются при анимировании палитры
     PC_RESERVED = 0x01,
     //Младшее 16-битное слово записи является индексом аппаратной палитры
     //Откуда взять эту аппаратную палитру?
@@ -64,6 +64,7 @@ public:
     quint16 getPaletteEntriesCount() const;
     QRgb getPaletteEntryColor(quint16 index) const;
     quint8 getPaletteEntryFlag(quint16 index) const;
+    void animatePalette(const PaletteObject &source);
 };
 
 #endif // PALETTEOBJECT_H

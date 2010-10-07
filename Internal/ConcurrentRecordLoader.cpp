@@ -23,6 +23,9 @@
 #include <QtConcurrentMap>
 
 #include "MetaEofRecord.h"
+#include "MetaExcludecliprectRecord.h"
+#include "MetaIntersectcliprectRecord.h"
+#include "MetaAnimatepaletteRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -180,11 +183,11 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_EXCLUDECLIPRECT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaExcludecliprectRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_INTERSECTCLIPRECT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaIntersectcliprectRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_ELLIPSE & 0x00FF):
@@ -200,7 +203,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_ANIMATEPALETTE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaAnimatepaletteRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_TEXTOUT & 0x00FF):

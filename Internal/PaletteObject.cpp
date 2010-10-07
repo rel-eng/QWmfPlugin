@@ -132,3 +132,20 @@ quint8 PaletteObject::getPaletteEntryFlag(quint16 index) const
         return this->flagEntries[index];
     }
 }
+
+void PaletteObject::animatePalette(const PaletteObject &source)
+{
+    if(this->numberOfEntries != source.numberOfEntries)
+    {
+        throw std::runtime_error("Size of source palette is not equal to size of destination palette");
+    }
+    for(quint16 i = 0; i < this->numberOfEntries; i++)
+    {
+        if((this->flagEntries[i] & PC_RESERVED) != 0)
+        {
+            //Нужно ли копировать флаги?
+            this->flagEntries[i] = source.flagEntries[i];
+            this->colorEntries[i] = source.colorEntries[i];
+        }
+    }
+}
