@@ -34,6 +34,8 @@
 #include "MetaResizepaletteRecord.h"
 #include "MetaRestoredcRecord.h"
 #include "MetaSavedcRecord.h"
+#include "MetaScaleviewportextRecord.h"
+#include "MetaScalewindowextRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -183,11 +185,11 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SCALEWINDOWEXT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaScalewindowextRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SCALEVIEWPORTEXT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaScaleviewportextRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_EXCLUDECLIPRECT & 0x00FF):

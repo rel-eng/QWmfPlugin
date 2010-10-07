@@ -42,7 +42,9 @@ HEADERS = WmfHandler.h \
     Internal/MetaRealizepaletteRecord.h \
     Internal/MetaResizepaletteRecord.h \
     Internal/MetaRestoredcRecord.h \
-    Internal/MetaSavedcRecord.h
+    Internal/MetaSavedcRecord.h \
+    Internal/MetaScaleviewportextRecord.h \
+    Internal/MetaScalewindowextRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -63,7 +65,9 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaRealizepaletteRecord.cpp \
     Internal/MetaResizepaletteRecord.cpp \
     Internal/MetaRestoredcRecord.cpp \
-    Internal/MetaSavedcRecord.cpp
+    Internal/MetaSavedcRecord.cpp \
+    Internal/MetaScaleviewportextRecord.cpp \
+    Internal/MetaScalewindowextRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x
