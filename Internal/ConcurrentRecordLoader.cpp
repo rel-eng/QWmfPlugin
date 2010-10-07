@@ -30,6 +30,10 @@
 #include "MetaOffsetcliprgnRecord.h"
 #include "MetaOffsetviewportorgRecord.h"
 #include "MetaOffsetwindoworgRecord.h"
+#include "MetaRealizepaletteRecord.h"
+#include "MetaResizepaletteRecord.h"
+#include "MetaRestoredcRecord.h"
+#include "MetaSavedcRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -59,7 +63,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
             break;
         case (META_REALIZEPALETTE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaRealizepaletteRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETPALENTRIES & 0x00FF):
@@ -95,11 +99,11 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_RESTOREDC & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaRestoredcRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_RESIZEPALETTE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaResizepaletteRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_DIBCREATEPATTERNBRUSH & 0x00FF):
@@ -239,7 +243,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SAVEDC & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSavedcRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_PIE & 0x00FF):

@@ -38,7 +38,11 @@ HEADERS = WmfHandler.h \
     Internal/MetaMovetoRecord.h \
     Internal/MetaOffsetcliprgnRecord.h \
     Internal/MetaOffsetviewportorgRecord.h \
-    Internal/MetaOffsetwindoworgRecord.h
+    Internal/MetaOffsetwindoworgRecord.h \
+    Internal/MetaRealizepaletteRecord.h \
+    Internal/MetaResizepaletteRecord.h \
+    Internal/MetaRestoredcRecord.h \
+    Internal/MetaSavedcRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -55,7 +59,11 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaMovetoRecord.cpp \
     Internal/MetaOffsetcliprgnRecord.cpp \
     Internal/MetaOffsetviewportorgRecord.cpp \
-    Internal/MetaOffsetwindoworgRecord.cpp
+    Internal/MetaOffsetwindoworgRecord.cpp \
+    Internal/MetaRealizepaletteRecord.cpp \
+    Internal/MetaResizepaletteRecord.cpp \
+    Internal/MetaRestoredcRecord.cpp \
+    Internal/MetaSavedcRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x
