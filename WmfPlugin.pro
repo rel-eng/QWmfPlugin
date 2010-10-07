@@ -44,7 +44,12 @@ HEADERS = WmfHandler.h \
     Internal/MetaRestoredcRecord.h \
     Internal/MetaSavedcRecord.h \
     Internal/MetaScaleviewportextRecord.h \
-    Internal/MetaScalewindowextRecord.h
+    Internal/MetaScalewindowextRecord.h \
+    Internal/MetaSetbkcolorRecord.h \
+    Internal/MetaSetbkmodeRecord.h \
+    Internal/MetaSetlayoutRecord.h \
+    Internal/MetaSetmapmodeRecord.h \
+    Internal/MetaSetmapperflagsRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -67,7 +72,12 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaRestoredcRecord.cpp \
     Internal/MetaSavedcRecord.cpp \
     Internal/MetaScaleviewportextRecord.cpp \
-    Internal/MetaScalewindowextRecord.cpp
+    Internal/MetaScalewindowextRecord.cpp \
+    Internal/MetaSetbkcolorRecord.cpp \
+    Internal/MetaSetbkmodeRecord.cpp \
+    Internal/MetaSetlayoutRecord.cpp \
+    Internal/MetaSetmapmodeRecord.cpp \
+    Internal/MetaSetmapperflagsRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

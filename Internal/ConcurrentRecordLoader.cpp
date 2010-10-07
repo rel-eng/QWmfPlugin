@@ -36,6 +36,11 @@
 #include "MetaSavedcRecord.h"
 #include "MetaScaleviewportextRecord.h"
 #include "MetaScalewindowextRecord.h"
+#include "MetaSetbkcolorRecord.h"
+#include "MetaSetbkmodeRecord.h"
+#include "MetaSetlayoutRecord.h"
+#include "MetaSetmapmodeRecord.h"
+#include "MetaSetmapperflagsRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -73,11 +78,11 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SETBKMODE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetbkmodeRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETMAPMODE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetmapmodeRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETROP2 & 0x00FF):
@@ -113,11 +118,11 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SETLAYOUT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetlayoutRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETBKCOLOR & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetbkcolorRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETTEXTCOLOR & 0x00FF):
@@ -145,7 +150,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SETMAPPERFLAGS & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetmapperflagsRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SELECTPALETTE & 0x00FF):
