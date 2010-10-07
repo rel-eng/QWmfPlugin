@@ -26,6 +26,10 @@
 #include "MetaExcludecliprectRecord.h"
 #include "MetaIntersectcliprectRecord.h"
 #include "MetaAnimatepaletteRecord.h"
+#include "MetaMovetoRecord.h"
+#include "MetaOffsetcliprgnRecord.h"
+#include "MetaOffsetviewportorgRecord.h"
+#include "MetaOffsetwindoworgRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -115,7 +119,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_OFFSETVIEWPORTORG & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaOffsetviewportorgRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_LINETO & 0x00FF):
@@ -123,11 +127,11 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_MOVETO & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaMovetoRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_OFFSETCLIPRGN & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaOffsetcliprgnRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_FILLREGION & 0x00FF):
@@ -171,7 +175,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_OFFSETWINDOWORG & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaOffsetwindoworgRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SCALEWINDOWEXT & 0x00FF):
