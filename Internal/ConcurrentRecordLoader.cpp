@@ -54,6 +54,7 @@
 #include "MetaSetviewportorgRecord.h"
 #include "MetaSetwindowextRecord.h"
 #include "MetaSetwindoworgRecord.h"
+#include "MetaEscapeRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -275,7 +276,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_ESCAPE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEscapeRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_INVERTREGION & 0x00FF):

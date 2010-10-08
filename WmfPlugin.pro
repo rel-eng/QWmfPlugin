@@ -62,7 +62,8 @@ HEADERS = WmfHandler.h \
     Internal/MetaSetviewportextRecord.h \
     Internal/MetaSetviewportorgRecord.h \
     Internal/MetaSetwindowextRecord.h \
-    Internal/MetaSetwindoworgRecord.h
+    Internal/MetaSetwindoworgRecord.h \
+    Internal/MetaEscapeRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -103,7 +104,8 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaSetviewportextRecord.cpp \
     Internal/MetaSetviewportorgRecord.cpp \
     Internal/MetaSetwindowextRecord.cpp \
-    Internal/MetaSetwindoworgRecord.cpp
+    Internal/MetaSetwindoworgRecord.cpp \
+    Internal/MetaEscapeRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x
