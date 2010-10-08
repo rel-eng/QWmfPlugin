@@ -52,7 +52,10 @@ HEADERS = WmfHandler.h \
     Internal/MetaSetmapperflagsRecord.h \
     Internal/MetaSetpalentriesRecord.h \
     Internal/MetaSetpolyfillmodeRecord.h \
-    Internal/MetaSetrelabsRecord.h
+    Internal/MetaSetrelabsRecord.h \
+    Internal/MetaSetrop2Record.h \
+    Internal/MetaSetstretchbltmodeRecord.h \
+    Internal/MetaSettextalignRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -83,7 +86,10 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaSetmapperflagsRecord.cpp \
     Internal/MetaSetpalentriesRecord.cpp \
     Internal/MetaSetpolyfillmodeRecord.cpp \
-    Internal/MetaSetrelabsRecord.cpp
+    Internal/MetaSetrelabsRecord.cpp \
+    Internal/MetaSetrop2Record.cpp \
+    Internal/MetaSetstretchbltmodeRecord.cpp \
+    Internal/MetaSettextalignRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

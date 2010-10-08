@@ -44,6 +44,9 @@
 #include "MetaSetpalentriesRecord.h"
 #include "MetaSetpolyfillmodeRecord.h"
 #include "MetaSetrelabsRecord.h"
+#include "MetaSetrop2Record.h"
+#include "MetaSetstretchbltmodeRecord.h"
+#include "MetaSettextalignRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -89,7 +92,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SETROP2 & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetrop2Record(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETRELABS & 0x00FF):
@@ -101,7 +104,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SETSTRETCHBLTMODE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetstretchbltmodeRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETTEXTCHAREXTRA & 0x00FF):
@@ -285,7 +288,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SETTEXTALIGN & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSettextalignRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_ARC & 0x00FF):
