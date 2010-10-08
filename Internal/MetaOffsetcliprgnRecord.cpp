@@ -23,11 +23,11 @@
 
 #include <stdexcept>
 
-MetaOffsetcliprgnRecord::MetaOffsetcliprgnRecord() : MetafileRecord(5, META_OFFSETCLIPRGN), xOffset(0), yOffset(0)
+MetaOffsetcliprgnRecord::MetaOffsetcliprgnRecord() : MetafileRecord(5, META_OFFSETCLIPRGN), yOffset(0), xOffset(0)
 {
 }
 
-MetaOffsetcliprgnRecord::MetaOffsetcliprgnRecord(qint16 xOffset, qint16 yOffset) : MetafileRecord(5, META_OFFSETCLIPRGN), xOffset(xOffset), yOffset(yOffset)
+MetaOffsetcliprgnRecord::MetaOffsetcliprgnRecord(qint16 yOffset, qint16 xOffset) : MetafileRecord(5, META_OFFSETCLIPRGN), yOffset(yOffset), xOffset(xOffset)
 {
 }
 
@@ -37,11 +37,11 @@ MetaOffsetcliprgnRecord::MetaOffsetcliprgnRecord(QIODevice &device) : MetafileRe
     {
         throw std::runtime_error("Not a META_OFFSETCLIPRGN record");
     }
-    this->xOffset = readSignedWord(device);
     this->yOffset = readSignedWord(device);
+    this->xOffset = readSignedWord(device);
 }
 
-MetaOffsetcliprgnRecord::MetaOffsetcliprgnRecord(const MetaOffsetcliprgnRecord &rhs) : MetafileRecord(rhs), xOffset(rhs.xOffset), yOffset(rhs.yOffset)
+MetaOffsetcliprgnRecord::MetaOffsetcliprgnRecord(const MetaOffsetcliprgnRecord &rhs) : MetafileRecord(rhs), yOffset(rhs.yOffset), xOffset(rhs.xOffset)
 {
 }
 
@@ -54,8 +54,8 @@ MetaOffsetcliprgnRecord & MetaOffsetcliprgnRecord::operator=(const MetaOffsetcli
     if (this != &rhs)
     {
         MetafileRecord::operator =(rhs);
-        this->xOffset = rhs.xOffset;
         this->yOffset = rhs.yOffset;
+        this->xOffset = rhs.xOffset;
     }
     return *this;
 }

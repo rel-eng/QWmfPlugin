@@ -1,4 +1,4 @@
-/* META_OFFSETCLIPRGN record definition.
+/* META_SETWINDOWEXT record definition.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,28 +17,30 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef METAOFFSETCLIPRGNRECORD_H
-#define METAOFFSETCLIPRGNRECORD_H
+#ifndef METASETWINDOWEXTRECORD_H
+#define METASETWINDOWEXTRECORD_H
 
 #include <QtGlobal>
 #include <QIODevice>
 
 #include "MetafileRecord.h"
 
-class MetaOffsetcliprgnRecord : public MetafileRecord
+class MetaSetwindowextRecord : public MetafileRecord
 {
 private:
-    qint16 yOffset;
-    qint16 xOffset;
+    //Ось ординат
+    qint16 y;
+    //Ось абсцисс
+    qint16 x;
 public:
-    MetaOffsetcliprgnRecord();
-    MetaOffsetcliprgnRecord(qint16 yOffset, qint16 xOffset);
-    MetaOffsetcliprgnRecord(QIODevice &device);
-    MetaOffsetcliprgnRecord(const MetaOffsetcliprgnRecord &rhs);
-    virtual ~MetaOffsetcliprgnRecord();
-    MetaOffsetcliprgnRecord &operator=(const MetaOffsetcliprgnRecord &rhs);
-    qint16 getXOffset() const;
-    qint16 getYOffset() const;
+    MetaSetwindowextRecord();
+    MetaSetwindowextRecord(qint16 y, qint16 x);
+    MetaSetwindowextRecord(QIODevice &device);
+    MetaSetwindowextRecord(const MetaSetwindowextRecord &rhs);
+    virtual ~MetaSetwindowextRecord();
+    MetaSetwindowextRecord &operator=(const MetaSetwindowextRecord &rhs);
+    qint16 getY() const;
+    qint16 getX() const;
 };
 
-#endif // METAOFFSETCLIPRGNRECORD_H
+#endif // METASETWINDOWEXTRECORD_H

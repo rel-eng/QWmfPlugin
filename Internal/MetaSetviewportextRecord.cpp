@@ -1,4 +1,4 @@
-/* META_MOVETO record implementation.
+/* META_SETVIEWPORTEXT record implementation.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,39 +17,39 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#include "MetaMovetoRecord.h"
+#include "MetaSetviewportextRecord.h"
 
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
 
-MetaMovetoRecord::MetaMovetoRecord() : MetafileRecord(5, META_MOVETO), y(0), x(0)
+MetaSetviewportextRecord::MetaSetviewportextRecord() : MetafileRecord(5, META_SETVIEWPORTEXT), y(1), x(1)
 {
 }
 
-MetaMovetoRecord::MetaMovetoRecord(qint16 y, qint16 x) : MetafileRecord(5, META_MOVETO), y(y), x(x)
+MetaSetviewportextRecord::MetaSetviewportextRecord(qint16 y, qint16 x) : MetafileRecord(5, META_SETVIEWPORTEXT), y(y), x(x)
 {
 }
 
-MetaMovetoRecord::MetaMovetoRecord(QIODevice &device) : MetafileRecord(device)
+MetaSetviewportextRecord::MetaSetviewportextRecord(QIODevice &device) : MetafileRecord(device)
 {
-    if((this->getRecordFunction() & 0x00FF) != (META_MOVETO & 0x00FF))
+    if((this->getRecordFunction() & 0x00FF) != (META_SETVIEWPORTEXT & 0x00FF))
     {
-        throw std::runtime_error("Not a META_MOVETO record");
+        throw std::runtime_error("Not a META_SETVIEWPORTEXT record");
     }
     this->y = readSignedWord(device);
     this->x = readSignedWord(device);
 }
 
-MetaMovetoRecord::MetaMovetoRecord(const MetaMovetoRecord &rhs) : MetafileRecord(rhs), y(rhs.y), x(rhs.x)
+MetaSetviewportextRecord::MetaSetviewportextRecord(const MetaSetviewportextRecord &rhs) : MetafileRecord(rhs), y(rhs.y), x(rhs.x)
 {
 }
 
-MetaMovetoRecord::~MetaMovetoRecord()
+MetaSetviewportextRecord::~MetaSetviewportextRecord()
 {
 }
 
-MetaMovetoRecord & MetaMovetoRecord::operator=(const MetaMovetoRecord &rhs)
+MetaSetviewportextRecord & MetaSetviewportextRecord::operator=(const MetaSetviewportextRecord &rhs)
 {
     if (this != &rhs)
     {
@@ -60,7 +60,12 @@ MetaMovetoRecord & MetaMovetoRecord::operator=(const MetaMovetoRecord &rhs)
     return *this;
 }
 
-QPoint MetaMovetoRecord::getPoint() const
+qint16 MetaSetviewportextRecord::getY() const
 {
-    return QPoint(this->x, this->y);
+    return this->y;
+}
+
+qint16 MetaSetviewportextRecord::getX() const
+{
+    return this->x;
 }

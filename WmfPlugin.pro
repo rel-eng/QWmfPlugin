@@ -55,7 +55,14 @@ HEADERS = WmfHandler.h \
     Internal/MetaSetrelabsRecord.h \
     Internal/MetaSetrop2Record.h \
     Internal/MetaSetstretchbltmodeRecord.h \
-    Internal/MetaSettextalignRecord.h
+    Internal/MetaSettextalignRecord.h \
+    Internal/MetaSettextcharextraRecord.h \
+    Internal/MetaSettextcolorRecord.h \
+    Internal/MetaSettextjustificationRecord.h \
+    Internal/MetaSetviewportextRecord.h \
+    Internal/MetaSetviewportorgRecord.h \
+    Internal/MetaSetwindowextRecord.h \
+    Internal/MetaSetwindoworgRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -89,7 +96,14 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaSetrelabsRecord.cpp \
     Internal/MetaSetrop2Record.cpp \
     Internal/MetaSetstretchbltmodeRecord.cpp \
-    Internal/MetaSettextalignRecord.cpp
+    Internal/MetaSettextalignRecord.cpp \
+    Internal/MetaSettextcharextraRecord.cpp \
+    Internal/MetaSettextcolorRecord.cpp \
+    Internal/MetaSettextjustificationRecord.cpp \
+    Internal/MetaSetviewportextRecord.cpp \
+    Internal/MetaSetviewportorgRecord.cpp \
+    Internal/MetaSetwindowextRecord.cpp \
+    Internal/MetaSetwindoworgRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

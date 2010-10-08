@@ -1,4 +1,4 @@
-/* META_OFFSETCLIPRGN record definition.
+/* META_SETTEXTCHAREXTRA record definition.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,28 +17,27 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef METAOFFSETCLIPRGNRECORD_H
-#define METAOFFSETCLIPRGNRECORD_H
+#ifndef METASETTEXTCHAREXTRARECORD_H
+#define METASETTEXTCHAREXTRARECORD_H
 
 #include <QtGlobal>
 #include <QIODevice>
 
 #include "MetafileRecord.h"
 
-class MetaOffsetcliprgnRecord : public MetafileRecord
+class MetaSettextcharextraRecord : public MetafileRecord
 {
 private:
-    qint16 yOffset;
-    qint16 xOffset;
+    //К каждому символу добавляется дополнительно указанный интервал в логических единицах
+    quint16 charExtra;
 public:
-    MetaOffsetcliprgnRecord();
-    MetaOffsetcliprgnRecord(qint16 yOffset, qint16 xOffset);
-    MetaOffsetcliprgnRecord(QIODevice &device);
-    MetaOffsetcliprgnRecord(const MetaOffsetcliprgnRecord &rhs);
-    virtual ~MetaOffsetcliprgnRecord();
-    MetaOffsetcliprgnRecord &operator=(const MetaOffsetcliprgnRecord &rhs);
-    qint16 getXOffset() const;
-    qint16 getYOffset() const;
+    MetaSettextcharextraRecord();
+    MetaSettextcharextraRecord(quint16 charExtra);
+    MetaSettextcharextraRecord(QIODevice &device);
+    MetaSettextcharextraRecord(const MetaSettextcharextraRecord &rhs);
+    virtual ~MetaSettextcharextraRecord();
+    MetaSettextcharextraRecord &operator=(const MetaSettextcharextraRecord &rhs);
+    quint16 getCharExtra() const;
 };
 
-#endif // METAOFFSETCLIPRGNRECORD_H
+#endif // METASETTEXTCHAREXTRARECORD_H

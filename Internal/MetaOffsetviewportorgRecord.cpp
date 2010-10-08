@@ -23,11 +23,11 @@
 
 #include <stdexcept>
 
-MetaOffsetviewportorgRecord::MetaOffsetviewportorgRecord() : MetafileRecord(5, META_OFFSETVIEWPORTORG), xOffset(0), yOffset(0)
+MetaOffsetviewportorgRecord::MetaOffsetviewportorgRecord() : MetafileRecord(5, META_OFFSETVIEWPORTORG), yOffset(0), xOffset(0)
 {
 }
 
-MetaOffsetviewportorgRecord::MetaOffsetviewportorgRecord(qint16 xOffset, qint16 yOffset) : MetafileRecord(5, META_OFFSETVIEWPORTORG), xOffset(xOffset), yOffset(yOffset)
+MetaOffsetviewportorgRecord::MetaOffsetviewportorgRecord(qint16 yOffset, qint16 xOffset) : MetafileRecord(5, META_OFFSETVIEWPORTORG), yOffset(yOffset), xOffset(xOffset)
 {
 }
 
@@ -37,11 +37,11 @@ MetaOffsetviewportorgRecord::MetaOffsetviewportorgRecord(QIODevice &device) : Me
     {
         throw std::runtime_error("Not a META_OFFSETVIEWPORTORG record");
     }
-    this->xOffset = readSignedWord(device);
     this->yOffset = readSignedWord(device);
+    this->xOffset = readSignedWord(device);
 }
 
-MetaOffsetviewportorgRecord::MetaOffsetviewportorgRecord(const MetaOffsetviewportorgRecord &rhs) : MetafileRecord(rhs), xOffset(rhs.xOffset), yOffset(rhs.yOffset)
+MetaOffsetviewportorgRecord::MetaOffsetviewportorgRecord(const MetaOffsetviewportorgRecord &rhs) : MetafileRecord(rhs), yOffset(rhs.yOffset), xOffset(rhs.xOffset)
 {
 }
 
@@ -54,8 +54,8 @@ MetaOffsetviewportorgRecord & MetaOffsetviewportorgRecord::operator=(const MetaO
     if (this != &rhs)
     {
         MetafileRecord::operator =(rhs);
-        this->xOffset = rhs.xOffset;
         this->yOffset = rhs.yOffset;
+        this->xOffset = rhs.xOffset;
     }
     return *this;
 }

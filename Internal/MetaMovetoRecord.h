@@ -29,11 +29,11 @@
 class MetaMovetoRecord : public MetafileRecord
 {
 private:
-    qint16 x;
     qint16 y;
+    qint16 x;
  public:
     MetaMovetoRecord();
-    MetaMovetoRecord(qint16 x, qint16 y);
+    MetaMovetoRecord(qint16 y, qint16 x);
     MetaMovetoRecord(QIODevice &device);
     MetaMovetoRecord(const MetaMovetoRecord &rhs);
     virtual ~MetaMovetoRecord();

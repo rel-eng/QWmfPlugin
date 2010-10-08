@@ -1,4 +1,4 @@
-/* META_MOVETO record implementation.
+/* META_SETWINDOWEXT record implementation.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,39 +17,39 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#include "MetaMovetoRecord.h"
+#include "MetaSetwindowextRecord.h"
 
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
 
-MetaMovetoRecord::MetaMovetoRecord() : MetafileRecord(5, META_MOVETO), y(0), x(0)
+MetaSetwindowextRecord::MetaSetwindowextRecord() : MetafileRecord(5, META_SETWINDOWEXT), y(1), x(1)
 {
 }
 
-MetaMovetoRecord::MetaMovetoRecord(qint16 y, qint16 x) : MetafileRecord(5, META_MOVETO), y(y), x(x)
+MetaSetwindowextRecord::MetaSetwindowextRecord(qint16 y, qint16 x) : MetafileRecord(5, META_SETWINDOWEXT), y(y), x(x)
 {
 }
 
-MetaMovetoRecord::MetaMovetoRecord(QIODevice &device) : MetafileRecord(device)
+MetaSetwindowextRecord::MetaSetwindowextRecord(QIODevice &device) : MetafileRecord(device)
 {
-    if((this->getRecordFunction() & 0x00FF) != (META_MOVETO & 0x00FF))
+    if((this->getRecordFunction() & 0x00FF) != (META_SETWINDOWEXT & 0x00FF))
     {
-        throw std::runtime_error("Not a META_MOVETO record");
+        throw std::runtime_error("Not a META_SETWINDOWEXT record");
     }
     this->y = readSignedWord(device);
     this->x = readSignedWord(device);
 }
 
-MetaMovetoRecord::MetaMovetoRecord(const MetaMovetoRecord &rhs) : MetafileRecord(rhs), y(rhs.y), x(rhs.x)
+MetaSetwindowextRecord::MetaSetwindowextRecord(const MetaSetwindowextRecord &rhs) : MetafileRecord(rhs), y(rhs.y), x(rhs.x)
 {
 }
 
-MetaMovetoRecord::~MetaMovetoRecord()
+MetaSetwindowextRecord::~MetaSetwindowextRecord()
 {
 }
 
-MetaMovetoRecord & MetaMovetoRecord::operator=(const MetaMovetoRecord &rhs)
+MetaSetwindowextRecord & MetaSetwindowextRecord::operator=(const MetaSetwindowextRecord &rhs)
 {
     if (this != &rhs)
     {
@@ -60,7 +60,12 @@ MetaMovetoRecord & MetaMovetoRecord::operator=(const MetaMovetoRecord &rhs)
     return *this;
 }
 
-QPoint MetaMovetoRecord::getPoint() const
+qint16 MetaSetwindowextRecord::getY() const
 {
-    return QPoint(this->x, this->y);
+    return this->y;
+}
+
+qint16 MetaSetwindowextRecord::getX() const
+{
+    return this->x;
 }

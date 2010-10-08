@@ -1,4 +1,4 @@
-/* META_OFFSETCLIPRGN record definition.
+/* META_SETWINDOWORG record definition.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,28 +17,28 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef METAOFFSETCLIPRGNRECORD_H
-#define METAOFFSETCLIPRGNRECORD_H
+#ifndef METASETWINDOWORGRECORD_H
+#define METASETWINDOWORGRECORD_H
 
 #include <QtGlobal>
 #include <QIODevice>
+#include <QPoint>
 
 #include "MetafileRecord.h"
 
-class MetaOffsetcliprgnRecord : public MetafileRecord
+class MetaSetwindoworgRecord : public MetafileRecord
 {
 private:
-    qint16 yOffset;
-    qint16 xOffset;
+    qint16 y;
+    qint16 x;
 public:
-    MetaOffsetcliprgnRecord();
-    MetaOffsetcliprgnRecord(qint16 yOffset, qint16 xOffset);
-    MetaOffsetcliprgnRecord(QIODevice &device);
-    MetaOffsetcliprgnRecord(const MetaOffsetcliprgnRecord &rhs);
-    virtual ~MetaOffsetcliprgnRecord();
-    MetaOffsetcliprgnRecord &operator=(const MetaOffsetcliprgnRecord &rhs);
-    qint16 getXOffset() const;
-    qint16 getYOffset() const;
+    MetaSetwindoworgRecord();
+    MetaSetwindoworgRecord(qint16 y, qint16 x);
+    MetaSetwindoworgRecord(QIODevice &device);
+    MetaSetwindoworgRecord(const MetaSetwindoworgRecord &rhs);
+    virtual ~MetaSetwindoworgRecord();
+    MetaSetwindoworgRecord &operator=(const MetaSetwindoworgRecord &rhs);
+    QPoint getPoint() const;
 };
 
-#endif // METAOFFSETCLIPRGNRECORD_H
+#endif // METASETWINDOWORGRECORD_H

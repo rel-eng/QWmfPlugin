@@ -47,6 +47,13 @@
 #include "MetaSetrop2Record.h"
 #include "MetaSetstretchbltmodeRecord.h"
 #include "MetaSettextalignRecord.h"
+#include "MetaSettextcharextraRecord.h"
+#include "MetaSettextcolorRecord.h"
+#include "MetaSettextjustificationRecord.h"
+#include "MetaSetviewportextRecord.h"
+#include "MetaSetviewportorgRecord.h"
+#include "MetaSetwindowextRecord.h"
+#include "MetaSetwindoworgRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -108,7 +115,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SETTEXTCHAREXTRA & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSettextcharextraRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_RESTOREDC & 0x00FF):
@@ -132,7 +139,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SETTEXTCOLOR & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSettextcolorRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_OFFSETVIEWPORTORG & 0x00FF):
@@ -172,23 +179,23 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SETTEXTJUSTIFICATION & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSettextjustificationRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETWINDOWORG & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetwindoworgRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETWINDOWEXT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetwindowextRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETVIEWPORTORG & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetviewportorgRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETVIEWPORTEXT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetviewportextRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_OFFSETWINDOWORG & 0x00FF):

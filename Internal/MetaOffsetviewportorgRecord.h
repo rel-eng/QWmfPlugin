@@ -28,11 +28,11 @@
 class MetaOffsetviewportorgRecord : public MetafileRecord
 {
 private:
-    qint16 xOffset;
     qint16 yOffset;
+    qint16 xOffset;
 public:
     MetaOffsetviewportorgRecord();
-    MetaOffsetviewportorgRecord(qint16 xOffset, qint16 yOffset);
+    MetaOffsetviewportorgRecord(qint16 yOffset, qint16 xOffset);
     MetaOffsetviewportorgRecord(QIODevice &device);
     MetaOffsetviewportorgRecord(const MetaOffsetviewportorgRecord &rhs);
     virtual ~MetaOffsetviewportorgRecord();

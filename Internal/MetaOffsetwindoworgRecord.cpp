@@ -23,11 +23,11 @@
 
 #include <stdexcept>
 
-MetaOffsetwindoworgRecord::MetaOffsetwindoworgRecord() : MetafileRecord(5, META_OFFSETWINDOWORG), xOffset(0), yOffset(0)
+MetaOffsetwindoworgRecord::MetaOffsetwindoworgRecord() : MetafileRecord(5, META_OFFSETWINDOWORG), yOffset(0), xOffset(0)
 {
 }
 
-MetaOffsetwindoworgRecord::MetaOffsetwindoworgRecord(qint16 xOffset, qint16 yOffset) : MetafileRecord(5, META_OFFSETWINDOWORG), xOffset(xOffset), yOffset(yOffset)
+MetaOffsetwindoworgRecord::MetaOffsetwindoworgRecord(qint16 xOffset, qint16 yOffset) : MetafileRecord(5, META_OFFSETWINDOWORG), yOffset(yOffset), xOffset(xOffset)
 {
 }
 
@@ -37,11 +37,11 @@ MetaOffsetwindoworgRecord::MetaOffsetwindoworgRecord(QIODevice &device) : Metafi
     {
         throw std::runtime_error("Not a META_OFFSETWINDOWORG record");
     }
-    this->xOffset = readSignedWord(device);
     this->yOffset = readSignedWord(device);
+    this->xOffset = readSignedWord(device);
 }
 
-MetaOffsetwindoworgRecord::MetaOffsetwindoworgRecord(const MetaOffsetwindoworgRecord &rhs) : MetafileRecord(rhs), xOffset(rhs.xOffset), yOffset(rhs.yOffset)
+MetaOffsetwindoworgRecord::MetaOffsetwindoworgRecord(const MetaOffsetwindoworgRecord &rhs) : MetafileRecord(rhs), yOffset(rhs.yOffset), xOffset(rhs.xOffset)
 {
 }
 
@@ -54,8 +54,8 @@ MetaOffsetwindoworgRecord & MetaOffsetwindoworgRecord::operator=(const MetaOffse
     if (this != &rhs)
     {
         MetafileRecord::operator =(rhs);
-        this->xOffset = rhs.xOffset;
         this->yOffset = rhs.yOffset;
+        this->xOffset = rhs.xOffset;
     }
     return *this;
 }

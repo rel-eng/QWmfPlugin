@@ -1,4 +1,4 @@
-/* META_OFFSETCLIPRGN record definition.
+/* META_SETTEXTCOLOR record definition.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,28 +17,27 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef METAOFFSETCLIPRGNRECORD_H
-#define METAOFFSETCLIPRGNRECORD_H
+#ifndef METASETTEXTCOLORRECORD_H
+#define METASETTEXTCOLORRECORD_H
 
 #include <QtGlobal>
 #include <QIODevice>
+#include <QColor>
 
 #include "MetafileRecord.h"
 
-class MetaOffsetcliprgnRecord : public MetafileRecord
+class MetaSettextcolorRecord : public MetafileRecord
 {
 private:
-    qint16 yOffset;
-    qint16 xOffset;
+    QRgb color;
 public:
-    MetaOffsetcliprgnRecord();
-    MetaOffsetcliprgnRecord(qint16 yOffset, qint16 xOffset);
-    MetaOffsetcliprgnRecord(QIODevice &device);
-    MetaOffsetcliprgnRecord(const MetaOffsetcliprgnRecord &rhs);
-    virtual ~MetaOffsetcliprgnRecord();
-    MetaOffsetcliprgnRecord &operator=(const MetaOffsetcliprgnRecord &rhs);
-    qint16 getXOffset() const;
-    qint16 getYOffset() const;
+    MetaSettextcolorRecord();
+    MetaSettextcolorRecord(QRgb color);
+    MetaSettextcolorRecord(QIODevice &device);
+    MetaSettextcolorRecord(const MetaSettextcolorRecord &rhs);
+    virtual ~MetaSettextcolorRecord();
+    MetaSettextcolorRecord &operator=(const MetaSettextcolorRecord &rhs);
+    QRgb getColor() const;
 };
 
-#endif // METAOFFSETCLIPRGNRECORD_H
+#endif // METASETTEXTCOLORRECORD_H
