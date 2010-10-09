@@ -55,6 +55,9 @@
 #include "MetaSetwindowextRecord.h"
 #include "MetaSetwindoworgRecord.h"
 #include "MetaEscapeRecord.h"
+#include "MetaArcRecord.h"
+#include "MetaChordRecord.h"
+#include "MetaEllipseRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -220,7 +223,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_ELLIPSE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEllipseRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_FLOODFILL & 0x00FF):
@@ -300,11 +303,11 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_ARC & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaArcRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_CHORD & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaChordRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_BITBLT & 0x00FF):
