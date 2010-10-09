@@ -58,6 +58,7 @@
 #include "MetaArcRecord.h"
 #include "MetaChordRecord.h"
 #include "MetaEllipseRecord.h"
+#include "MetaExtfloodfillRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -247,7 +248,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_EXTFLOODFILL & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaExtfloodfillRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_RECTANGLE & 0x00FF):

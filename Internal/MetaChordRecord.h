@@ -22,6 +22,8 @@
 
 #include <QtGlobal>
 #include <QIODevice>
+#include <QPoint>
+#include <QRect>
 
 #include "MetafileRecord.h"
 
@@ -43,14 +45,9 @@ public:
     MetaChordRecord(const MetaChordRecord &rhs);
     virtual ~MetaChordRecord();
     MetaChordRecord &operator=(const MetaChordRecord &rhs);
-    qint16 getYRadial2() const;
-    qint16 getXRadial2() const;
-    qint16 getYRadial1() const;
-    qint16 getXRadial1() const;
-    qint16 getBottomRect() const;
-    qint16 getRightRect() const;
-    qint16 getTopRect() const;
-    qint16 getLeftRect() const;
+    QPoint getRadial2() const;
+    QPoint getRadial1() const;
+    QRect getRect() const;
 };
 
 #endif // METACHORDRECORD_H

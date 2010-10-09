@@ -72,42 +72,17 @@ MetaChordRecord & MetaChordRecord::operator=(const MetaChordRecord &rhs)
     return *this;
 }
 
-qint16 MetaChordRecord::getYRadial2() const
+QPoint MetaChordRecord::getRadial2() const
 {
-    return this->yRadial2;
+    return QPoint(this->xRadial2, this->yRadial2);
 }
 
-qint16 MetaChordRecord::getXRadial2() const
+QPoint MetaChordRecord::getRadial1() const
 {
-    return this->xRadial2;
+    return QPoint(this->xRadial1, this->yRadial1);
 }
 
-qint16 MetaChordRecord::getYRadial1() const
+QRect MetaChordRecord::getRect() const
 {
-    return this->yRadial1;
-}
-
-qint16 MetaChordRecord::getXRadial1() const
-{
-    return this->xRadial1;
-}
-
-qint16 MetaChordRecord::getBottomRect() const
-{
-    return this->bottomRect;
-}
-
-qint16 MetaChordRecord::getRightRect() const
-{
-    return this->rightRect;
-}
-
-qint16 MetaChordRecord::getTopRect() const
-{
-    return this->topRect;
-}
-
-qint16 MetaChordRecord::getLeftRect() const
-{
-    return this->leftRect;
+    return QRect(QPoint(this->leftRect,this->topRect), QPoint(this->rightRect, this->bottomRect));
 }

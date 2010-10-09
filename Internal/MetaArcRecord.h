@@ -22,6 +22,8 @@
 
 #include <QtGlobal>
 #include <QIODevice>
+#include <QPoint>
+#include <QRect>
 
 #include "MetafileRecord.h"
 
@@ -43,14 +45,9 @@ public:
     MetaArcRecord(const MetaArcRecord &rhs);
     virtual ~MetaArcRecord();
     MetaArcRecord &operator=(const MetaArcRecord &rhs);
-    qint16 getYEndArc() const;
-    qint16 getXEndArc() const;
-    qint16 getYStartArc() const;
-    qint16 getXStartArc() const;
-    qint16 getBottomRect() const;
-    qint16 getRightRect() const;
-    qint16 getTopRect() const;
-    qint16 getLeftRect() const;
+    QPoint getEndArc() const;
+    QPoint getStartArc() const;
+    QRect getRect() const;
 };
 
 #endif // METAARCRECORD_H

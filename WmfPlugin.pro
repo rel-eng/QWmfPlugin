@@ -66,7 +66,9 @@ HEADERS = WmfHandler.h \
     Internal/MetaEscapeRecord.h \
     Internal/MetaArcRecord.h \
     Internal/MetaChordRecord.h \
-    Internal/MetaEllipseRecord.h
+    Internal/MetaEllipseRecord.h \
+    Internal/MetaExtfloodfillRecord.h \
+    Internal/RectObject.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -111,7 +113,9 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaEscapeRecord.cpp \
     Internal/MetaArcRecord.cpp \
     Internal/MetaChordRecord.cpp \
-    Internal/MetaEllipseRecord.cpp
+    Internal/MetaEllipseRecord.cpp \
+    Internal/MetaExtfloodfillRecord.cpp \
+    Internal/RectObject.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

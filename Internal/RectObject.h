@@ -1,4 +1,4 @@
-/* META_ELLIPSE record definition.
+/* Rect object definition.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,30 +17,28 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef METAELLIPSERECORD_H
-#define METAELLIPSERECORD_H
+#ifndef RECTOBJECT_H
+#define RECTOBJECT_H
 
 #include <QtGlobal>
 #include <QIODevice>
 #include <QRect>
 
-#include "MetafileRecord.h"
-
-class MetaEllipseRecord : public MetafileRecord
+class RectObject
 {
 private:
-    qint16 bottomRect;
-    qint16 rightRect;
-    qint16 topRect;
-    qint16 leftRect;
+    qint16 left;
+    qint16 top;
+    qint16 right;
+    qint16 bottom;
 public:
-    MetaEllipseRecord();
-    MetaEllipseRecord(qint16 bottomRect, qint16 rightRect, qint16 topRect, qint16 leftRect);
-    MetaEllipseRecord(QIODevice &device);
-    MetaEllipseRecord(const MetaEllipseRecord &rhs);
-    virtual ~MetaEllipseRecord();
-    MetaEllipseRecord &operator=(const MetaEllipseRecord &rhs);
+    RectObject();
+    RectObject(qint16 left, qint16 top, qint16 right, qint16 bottom);
+    RectObject(QIODevice &device);
+    RectObject(const RectObject &rhs);
+    virtual ~RectObject();
+    RectObject &operator=(const RectObject &rhs);
     QRect getRect() const;
 };
 
-#endif // METAELLIPSERECORD_H
+#endif // RECTOBJECT_H

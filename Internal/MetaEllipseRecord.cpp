@@ -64,22 +64,7 @@ MetaEllipseRecord & MetaEllipseRecord::operator=(const MetaEllipseRecord &rhs)
     return *this;
 }
 
-qint16 MetaEllipseRecord::getBottomRect() const
+QRect MetaEllipseRecord::getRect() const
 {
-    return this->bottomRect;
-}
-
-qint16 MetaEllipseRecord::getRightRect() const
-{
-    return this->rightRect;
-}
-
-qint16 MetaEllipseRecord::getTopRect() const
-{
-    return this->topRect;
-}
-
-qint16 MetaEllipseRecord::getLeftRect() const
-{
-    return this->leftRect;
+    return QRect(QPoint(this->leftRect,this->topRect), QPoint(this->rightRect, this->bottomRect));
 }

@@ -72,42 +72,17 @@ MetaArcRecord & MetaArcRecord::operator=(const MetaArcRecord &rhs)
     return *this;
 }
 
-qint16 MetaArcRecord::getYEndArc() const
+QPoint MetaArcRecord::getEndArc() const
 {
-    return this->yEndArc;
+    return QPoint(this->xEndArc, this->yEndArc);
 }
 
-qint16 MetaArcRecord::getXEndArc() const
+QPoint MetaArcRecord::getStartArc() const
 {
-    return this->xEndArc;
+    return QPoint(this->xStartArc, this->yStartArc);
 }
 
-qint16 MetaArcRecord::getYStartArc() const
+QRect MetaArcRecord::getRect() const
 {
-    return this->yStartArc;
-}
-
-qint16 MetaArcRecord::getXStartArc() const
-{
-    return this->xStartArc;
-}
-
-qint16 MetaArcRecord::getBottomRect() const
-{
-    return this->bottomRect;
-}
-
-qint16 MetaArcRecord::getRightRect() const
-{
-    return this->rightRect;
-}
-
-qint16 MetaArcRecord::getTopRect() const
-{
-    return this->topRect;
-}
-
-qint16 MetaArcRecord::getLeftRect() const
-{
-    return this->leftRect;
+    return QRect(QPoint(this->leftRect,this->topRect), QPoint(this->rightRect, this->bottomRect));
 }
