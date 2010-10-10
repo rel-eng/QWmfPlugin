@@ -63,6 +63,9 @@
 #include "MetaFillregionRecord.h"
 #include "MetaFloodfillRecord.h"
 #include "MetaFrameregionRecord.h"
+#include "MetaInvertregionRecord.h"
+#include "MetaLinetoRecord.h"
+#include "MetaPaintregionRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -156,7 +159,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_LINETO & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaLinetoRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_MOVETO & 0x00FF):
@@ -288,11 +291,11 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_INVERTREGION & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaInvertregionRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_PAINTREGION & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPaintregionRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SELECTCLIPREGION & 0x00FF):
