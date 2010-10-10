@@ -60,6 +60,9 @@
 #include "MetaEllipseRecord.h"
 #include "MetaExtfloodfillRecord.h"
 #include "MetaExttextoutRecord.h"
+#include "MetaFillregionRecord.h"
+#include "MetaFloodfillRecord.h"
+#include "MetaFrameregionRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -165,7 +168,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_FILLREGION & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaFillregionRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETMAPPERFLAGS & 0x00FF):
@@ -229,11 +232,11 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_FLOODFILL & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaFloodfillRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_FRAMEREGION & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaFrameregionRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_ANIMATEPALETTE & 0x00FF):
