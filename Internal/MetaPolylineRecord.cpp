@@ -27,7 +27,7 @@ MetaPolylineRecord::MetaPolylineRecord() : MetafileRecord(4, META_POLYLINE), num
 {
 }
 
-MetaPolylineRecord::MetaPolylineRecord(const QVector<QPoint> &points) : MetafileRecord(4 + 2 * points.count(), META_POLYLINE), numberOfPoints(points.count()), points(points)
+MetaPolylineRecord::MetaPolylineRecord(const QVector<QPoint> &points) : MetafileRecord(4 + 4 * points.count(), META_POLYLINE), numberOfPoints(points.count()), points(points)
 {
     if(points.count() > 0xFFFF)
     {
