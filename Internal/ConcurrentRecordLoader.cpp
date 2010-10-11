@@ -69,6 +69,7 @@
 #include "MetaPatbltRecord.h"
 #include "MetaPieRecord.h"
 #include "MetaPolylineRecord.h"
+#include "MetaPolygonRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -186,7 +187,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_POLYGON & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPolygonRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_POLYLINE & 0x00FF):

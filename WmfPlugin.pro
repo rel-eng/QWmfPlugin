@@ -79,7 +79,8 @@ HEADERS = WmfHandler.h \
     Internal/TernaryRasterOperation.h \
     Internal/MetaPatbltRecord.h \
     Internal/MetaPieRecord.h \
-    Internal/MetaPolylineRecord.h
+    Internal/MetaPolylineRecord.h \
+    Internal/MetaPolygonRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -136,7 +137,8 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaPaintregionRecord.cpp \
     Internal/MetaPatbltRecord.cpp \
     Internal/MetaPieRecord.cpp \
-    Internal/MetaPolylineRecord.cpp
+    Internal/MetaPolylineRecord.cpp \
+    Internal/MetaPolygonRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x
