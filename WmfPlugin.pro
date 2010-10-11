@@ -75,7 +75,11 @@ HEADERS = WmfHandler.h \
     Internal/MetaFrameregionRecord.h \
     Internal/MetaInvertregionRecord.h \
     Internal/MetaLinetoRecord.h \
-    Internal/MetaPaintregionRecord.h
+    Internal/MetaPaintregionRecord.h \
+    Internal/TernaryRasterOperation.h \
+    Internal/MetaPatbltRecord.h \
+    Internal/MetaPieRecord.h \
+    Internal/MetaPolylineRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -129,7 +133,10 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaFrameregionRecord.cpp \
     Internal/MetaInvertregionRecord.cpp \
     Internal/MetaLinetoRecord.cpp \
-    Internal/MetaPaintregionRecord.cpp
+    Internal/MetaPaintregionRecord.cpp \
+    Internal/MetaPatbltRecord.cpp \
+    Internal/MetaPieRecord.cpp \
+    Internal/MetaPolylineRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

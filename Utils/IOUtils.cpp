@@ -312,3 +312,10 @@ QRgb readBGRBytes(QIODevice &device)
     quint8 redIn = data[2];
     return qRgb(static_cast<int>(redIn), static_cast<int>(greenIn), static_cast<int>(blueIn));
 }
+
+QPoint readPointShort(QIODevice &device)
+{
+    qint16 x = readSignedWord(device);
+    qint16 y = readSignedWord(device);
+    return QPoint(x, y);
+}

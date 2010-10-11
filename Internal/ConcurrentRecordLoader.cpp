@@ -66,6 +66,9 @@
 #include "MetaInvertregionRecord.h"
 #include "MetaLinetoRecord.h"
 #include "MetaPaintregionRecord.h"
+#include "MetaPatbltRecord.h"
+#include "MetaPieRecord.h"
+#include "MetaPolylineRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -187,7 +190,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_POLYLINE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPolylineRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETTEXTJUSTIFICATION & 0x00FF):
@@ -271,7 +274,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_PATBLT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPatbltRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SAVEDC & 0x00FF):
@@ -279,7 +282,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_PIE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPieRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_STRETCHBLT & 0x00FF):

@@ -25,6 +25,7 @@
 #include <QTextCodec>
 #include <QColor>
 #include <QIODevice>
+#include <QPoint>
 
 #include <cstddef>
 
@@ -47,5 +48,6 @@ QRgb readBGRDword(QIODevice &device);
 QRgb readBGRADword(QIODevice &device);
 QRgb readRGBBytes(QIODevice &device);
 QRgb readBGRBytes(QIODevice &device);
+QPoint readPointShort(QIODevice &device);
 
 #endif /* IOUTILS_H_ */
