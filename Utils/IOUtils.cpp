@@ -191,6 +191,7 @@ QString readNullTerminatedString(QIODevice &device, qint64 maxSize, QTextCodec *
     {
         qint64 pos = device.pos();
         qint64 bytesRead = Q_INT64_C(0);
+        bool nullFound = false;
         while (bytesRead < maxSize)
         {
             quint8 nextSymbol = 0;
@@ -201,6 +202,7 @@ QString readNullTerminatedString(QIODevice &device, qint64 maxSize, QTextCodec *
             bytesRead++;
             if (nextSymbol == 0)
             {
+                nullFound = true;
                 break;
             }
         }
@@ -217,7 +219,7 @@ QString readNullTerminatedString(QIODevice &device, qint64 maxSize, QTextCodec *
         {
             throw std::runtime_error("Unable to create text decoder");
         }
-        if(bytesRead < maxSize)
+        if(nullFound)
         {
             return decoder->toUnicode(reinterpret_cast<const char *> (stringIn.data()), static_cast<int> (stringLength - Q_INT64_C(1)));
         }

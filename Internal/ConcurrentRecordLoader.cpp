@@ -76,6 +76,7 @@
 #include "MetaSetpixelRecord.h"
 #include "MetaTextoutRecord.h"
 #include "MetaCreatebrushindirectRecord.h"
+#include "MetaCreatefontindirectRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -369,7 +370,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_CREATEFONTINDIRECT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaCreatefontindirectRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_CREATEBRUSHINDIRECT & 0x00FF):
