@@ -77,6 +77,7 @@
 #include "MetaTextoutRecord.h"
 #include "MetaCreatebrushindirectRecord.h"
 #include "MetaCreatefontindirectRecord.h"
+#include "MetaCreatepaletteRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -358,7 +359,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_CREATEPALETTE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaCreatepaletteRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_CREATEPATTERNBRUSH & 0x00FF):
