@@ -70,6 +70,7 @@
 #include "MetaPieRecord.h"
 #include "MetaPolylineRecord.h"
 #include "MetaPolygonRecord.h"
+#include "MetaPolypolygonRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -255,7 +256,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_POLYPOLYGON & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPolypolygonRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_EXTFLOODFILL & 0x00FF):

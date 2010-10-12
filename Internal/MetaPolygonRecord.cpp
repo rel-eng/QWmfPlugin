@@ -27,7 +27,7 @@ MetaPolygonRecord::MetaPolygonRecord() : MetafileRecord(4, META_POLYGON), number
 {
 }
 
-MetaPolygonRecord::MetaPolygonRecord(const QVector<QPoint> &points) : MetafileRecord(4 + 4 * points.count(), META_POLYGON), numberOfPoints(points.count()), points(points)
+MetaPolygonRecord::MetaPolygonRecord(const QVector<QPoint> &points) : MetafileRecord(4 + 2 * points.count(), META_POLYGON), numberOfPoints(points.count()), points(points)
 {
     if(points.count() > 0xFFFF)
     {

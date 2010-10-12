@@ -183,6 +183,7 @@ public:
     MetafileRecord &operator=(const MetafileRecord &rhs);
     quint32 getRecordSizeInWords() const;
     quint16 getRecordFunction() const;
+    void setRecordSizeInWords(quint32 size);
 };
 
 #endif // METAFILERECORD_H

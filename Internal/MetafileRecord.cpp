@@ -284,3 +284,8 @@ quint16 MetafileRecord::getRecordFunction() const
 {
     return this->recordFunction;
 }
+
+void MetafileRecord::setRecordSizeInWords(quint32 size)
+{
+    this->recordSizeInWords = size;
+}
