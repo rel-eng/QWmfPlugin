@@ -90,7 +90,8 @@ HEADERS = WmfHandler.h \
     Internal/MetaCreatebrushindirectRecord.h \
     Internal/FontObject.h \
     Internal/MetaCreatefontindirectRecord.h \
-    Internal/MetaCreatepaletteRecord.h
+    Internal/MetaCreatepaletteRecord.h \
+    Internal/MetaCreatepatternbrushRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -158,7 +159,8 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaCreatebrushindirectRecord.cpp \
     Internal/FontObject.cpp \
     Internal/MetaCreatefontindirectRecord.cpp \
-    Internal/MetaCreatepaletteRecord.cpp
+    Internal/MetaCreatepaletteRecord.cpp \
+    Internal/MetaCreatepatternbrushRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

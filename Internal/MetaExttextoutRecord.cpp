@@ -68,7 +68,7 @@ MetaExttextoutRecord::MetaExttextoutRecord(QIODevice &device) : MetafileRecord(d
         this->textString = device.read(static_cast<qint64>(this->stringLength));
         if((this->stringLength % 2) != 0)
         {
-            device.seek(device.pos() + Q_INT64_C(1));
+            seekDevice(device, device.pos() + Q_INT64_C(1));
         }
         if(this->textString.length() != static_cast<int>(this->stringLength))
         {
