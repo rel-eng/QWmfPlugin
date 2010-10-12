@@ -81,7 +81,11 @@ HEADERS = WmfHandler.h \
     Internal/MetaPieRecord.h \
     Internal/MetaPolylineRecord.h \
     Internal/MetaPolygonRecord.h \
-    Internal/MetaPolypolygonRecord.h
+    Internal/MetaPolypolygonRecord.h \
+    Internal/MetaRectangleRecord.h \
+    Internal/MetaRoundrectRecord.h \
+    Internal/MetaSetpixelRecord.h \
+    Internal/MetaTextoutRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -140,7 +144,11 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaPieRecord.cpp \
     Internal/MetaPolylineRecord.cpp \
     Internal/MetaPolygonRecord.cpp \
-    Internal/MetaPolypolygonRecord.cpp
+    Internal/MetaPolypolygonRecord.cpp \
+    Internal/MetaRectangleRecord.cpp \
+    Internal/MetaRoundrectRecord.cpp \
+    Internal/MetaSetpixelRecord.cpp \
+    Internal/MetaTextoutRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

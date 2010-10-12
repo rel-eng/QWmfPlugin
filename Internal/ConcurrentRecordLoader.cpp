@@ -71,6 +71,10 @@
 #include "MetaPolylineRecord.h"
 #include "MetaPolygonRecord.h"
 #include "MetaPolypolygonRecord.h"
+#include "MetaRectangleRecord.h"
+#include "MetaRoundrectRecord.h"
+#include "MetaSetpixelRecord.h"
+#include "MetaTextoutRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -252,7 +256,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_TEXTOUT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaTextoutRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_POLYPOLYGON & 0x00FF):
@@ -264,15 +268,15 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_RECTANGLE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaRectangleRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETPIXEL & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetpixelRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_ROUNDRECT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaRoundrectRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_PATBLT & 0x00FF):
