@@ -57,7 +57,7 @@ private:
     size_t imageBitsLength;
 public:
     Bitmap16Object();
-    Bitmap16Object(quint16 width, quint16 height, quint8 bitsPerPixel, QScopedArrayPointer<quint8> imageBits, size_t imageBitsLength);
+    Bitmap16Object(quint16 width, quint16 height, quint8 bitsPerPixel, const QScopedArrayPointer<quint8> &imageBits, size_t imageBitsLength);
     Bitmap16Object(QIODevice &device);
     Bitmap16Object(const Bitmap16Object &rhs);
     virtual ~Bitmap16Object();

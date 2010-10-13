@@ -27,7 +27,7 @@ Bitmap16Object::Bitmap16Object() :  type(0), width(0), height(0), widthBytes(0),
 {
 }
 
-Bitmap16Object::Bitmap16Object(quint16 width, quint16 height, quint8 bitsPerPixel, QScopedArrayPointer<quint8> imageBits, size_t imageBitsLength) :  type(0), width(width), height(height), planes(1), bitsPerPixel(bitsPerPixel), imageBits(), imageBitsLength(imageBitsLength)
+Bitmap16Object::Bitmap16Object(quint16 width, quint16 height, quint8 bitsPerPixel, const QScopedArrayPointer<quint8> &imageBits, size_t imageBitsLength) :  type(0), width(width), height(height), planes(1), bitsPerPixel(bitsPerPixel), imageBits(), imageBitsLength(imageBitsLength)
 {
     quint16 wb = (this->width * static_cast<quint16>(bitsPerPixel) + 15)/16;
     this->widthBytes = wb * 2;
