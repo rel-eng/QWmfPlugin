@@ -80,6 +80,7 @@
 #include "MetaCreatepaletteRecord.h"
 #include "MetaCreatepatternbrushRecord.h"
 #include "MetaCreatepenindirectRecord.h"
+#include "MetaCreateregionRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -381,7 +382,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_CREATEREGION & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaCreateregionRecord(recordBuffer)));
             validRecordType = true;
             break;
         default:

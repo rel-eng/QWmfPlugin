@@ -93,7 +93,10 @@ HEADERS = WmfHandler.h \
     Internal/MetaCreatepaletteRecord.h \
     Internal/MetaCreatepatternbrushRecord.h \
     Internal/PenObject.h \
-    Internal/MetaCreatepenindirectRecord.h
+    Internal/MetaCreatepenindirectRecord.h \
+    Internal/ScanObject.h \
+    Internal/RegionObject.h \
+    Internal/MetaCreateregionRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -164,7 +167,10 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaCreatepaletteRecord.cpp \
     Internal/MetaCreatepatternbrushRecord.cpp \
     Internal/PenObject.cpp \
-    Internal/MetaCreatepenindirectRecord.cpp
+    Internal/MetaCreatepenindirectRecord.cpp \
+    Internal/ScanObject.cpp \
+    Internal/RegionObject.cpp \
+    Internal/MetaCreateregionRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x
