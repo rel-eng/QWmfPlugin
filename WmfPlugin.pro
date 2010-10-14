@@ -96,7 +96,8 @@ HEADERS = WmfHandler.h \
     Internal/MetaCreatepenindirectRecord.h \
     Internal/ScanObject.h \
     Internal/RegionObject.h \
-    Internal/MetaCreateregionRecord.h
+    Internal/MetaCreateregionRecord.h \
+    Internal/MetaDeleteobjectRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -170,7 +171,8 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaCreatepenindirectRecord.cpp \
     Internal/ScanObject.cpp \
     Internal/RegionObject.cpp \
-    Internal/MetaCreateregionRecord.cpp
+    Internal/MetaCreateregionRecord.cpp \
+    Internal/MetaDeleteobjectRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

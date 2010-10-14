@@ -81,6 +81,7 @@
 #include "MetaCreatepatternbrushRecord.h"
 #include "MetaCreatepenindirectRecord.h"
 #include "MetaCreateregionRecord.h"
+#include "MetaDeleteobjectRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -358,7 +359,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_DELETEOBJECT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaDeleteobjectRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_CREATEPALETTE & 0x00FF):
