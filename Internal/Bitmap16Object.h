@@ -65,8 +65,9 @@ public:
     quint16 getWidth() const;
     quint16 getHeight() const;
     quint8 getBitsPerPixel() const;
-    QImage getImage();
-    QImage getImage(const PaletteObject &palette);
+    QImage getImage() const;
+    QImage getImage(const PaletteObject &palette) const;
+    quint32 getSizeInWords() const;
 };
 
 #endif // BITMAP16OBJECT_H

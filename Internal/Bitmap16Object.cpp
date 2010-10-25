@@ -113,7 +113,7 @@ quint8 Bitmap16Object::getBitsPerPixel() const
     return this->bitsPerPixel;
 }
 
-QImage Bitmap16Object::getImage()
+QImage Bitmap16Object::getImage() const
 {
     QImage image(this->width, this->height, QImage::Format_ARGB32);
     if(this->bitsPerPixel == 24)
@@ -136,7 +136,7 @@ QImage Bitmap16Object::getImage()
     return image;
 }
 
-QImage Bitmap16Object::getImage(const PaletteObject &palette)
+QImage Bitmap16Object::getImage(const PaletteObject &palette) const
 {
     QImage image(this->width, this->height, QImage::Format_ARGB32);
     if(this->bitsPerPixel == 1)
@@ -223,4 +223,15 @@ QImage Bitmap16Object::getImage(const PaletteObject &palette)
         }
     }
     return image;
+}
+
+quint32 Bitmap16Object::getSizeInWords() const
+{
+    quint32 sizeInBytes = 10 + this->imageBitsLength;
+    quint32 sizeInWords = sizeInBytes/2;
+    if((sizeInBytes%2) != 0)
+    {
+        sizeInWords++;
+    }
+    return sizeInWords;
 }

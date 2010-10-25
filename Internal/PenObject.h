@@ -24,7 +24,7 @@
 #include <QIODevice>
 #include <QColor>
 
-enum PenStyle
+enum PenStyle : quint16
 {
     //Ширина линии не зависит от преобразований координат
     PS_COSMETIC = 0x0000,
