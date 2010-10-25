@@ -82,6 +82,10 @@
 #include "MetaCreatepenindirectRecord.h"
 #include "MetaCreateregionRecord.h"
 #include "MetaDeleteobjectRecord.h"
+#include "MetaDibcreatepatternbrushRecord.h"
+#include "MetaSelectclipregionRecord.h"
+#include "MetaSelectobjectRecord.h"
+#include "MetaSelectpaletteRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -155,7 +159,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_DIBCREATEPATTERNBRUSH & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaDibcreatepatternbrushRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETLAYOUT & 0x00FF):
@@ -195,7 +199,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SELECTPALETTE & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSelectpaletteRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_POLYGON & 0x00FF):
@@ -315,11 +319,11 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SELECTCLIPREGION & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSelectclipregionRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SELECTOBJECT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSelectobjectRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_SETTEXTALIGN & 0x00FF):

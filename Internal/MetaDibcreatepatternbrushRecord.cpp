@@ -37,6 +37,10 @@ MetaDibcreatepatternbrushRecord::MetaDibcreatepatternbrushRecord(quint16 style, 
 
 MetaDibcreatepatternbrushRecord::MetaDibcreatepatternbrushRecord(QIODevice &device) : MetafileRecord(device), dib(), bitmap()
 {
+    if((this->getRecordFunction() & 0x00FF) != (META_DIBCREATEPATTERNBRUSH & 0x00FF))
+    {
+        throw std::runtime_error("Not a META_DIBCREATEPATTERNBRUSH record");
+    }
     this->style = readUnsignedWord(device);
     this->colorUsage = readUnsignedWord(device);
     if(this->style == BS_PATTERN)

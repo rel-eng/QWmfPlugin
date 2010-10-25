@@ -30,7 +30,7 @@
 #include "Bitmap16Object.h"
 #include "PaletteObject.h"
 
-class MetaDibcreatepatternbrushRecord : MetafileRecord
+class MetaDibcreatepatternbrushRecord : public MetafileRecord
 {
 private:
     quint16 style;

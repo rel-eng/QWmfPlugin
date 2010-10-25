@@ -101,7 +101,10 @@ HEADERS = WmfHandler.h \
     Internal/BitmapCoreHeaderObject.h \
     Internal/BitmapInfoHeaderObject.h \
     Internal/DeviceIndependentBitmapObject.h \
-    Internal/MetaDibcreatepatternbrushRecord.h
+    Internal/MetaDibcreatepatternbrushRecord.h \
+    Internal/MetaSelectclipregionRecord.h \
+    Internal/MetaSelectobjectRecord.h \
+    Internal/MetaSelectpaletteRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -180,7 +183,10 @@ SOURCES = WmfPlugin.cpp \
     Internal/BitmapCoreHeaderObject.cpp \
     Internal/BitmapInfoHeaderObject.cpp \
     Internal/DeviceIndependentBitmapObject.cpp \
-    Internal/MetaDibcreatepatternbrushRecord.cpp
+    Internal/MetaDibcreatepatternbrushRecord.cpp \
+    Internal/MetaSelectclipregionRecord.cpp \
+    Internal/MetaSelectobjectRecord.cpp \
+    Internal/MetaSelectpaletteRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x
