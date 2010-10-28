@@ -37,14 +37,24 @@ MetaBitbltRecord::MetaBitbltRecord(QIODevice &device) : MetafileRecord(device), 
     {
         throw std::runtime_error("Not a META_BITBLT record");
     }
+    bool hasBitmap = false;
+    if(this->getRecordSizeInWords() != ((this->getRecordFunction() >> 8)+3))
+    {
+        hasBitmap = true;
+    }
     this->rasterOperation = readUnsignedDWord(device);
     this->ySrc = readSignedWord(device);
     this->xSrc = readSignedWord(device);
+    if(!hasBitmap)
+    {
+        //Зарезервированное поле
+        readUnsignedWord(device);
+    }
     this->height = readSignedWord(device);
     this->width = readSignedWord(device);
     this->yDest = readSignedWord(device);
     this->xDest = readSignedWord(device);
-    if(this->getRecordSizeInWords() != ((this->getRecordFunction() >> 8)+3))
+    if(hasBitmap)
     {
         this->target = Bitmap16Object(device);
     }
