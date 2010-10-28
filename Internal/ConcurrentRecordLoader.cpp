@@ -86,6 +86,7 @@
 #include "MetaSelectclipregionRecord.h"
 #include "MetaSelectobjectRecord.h"
 #include "MetaSelectpaletteRecord.h"
+#include "MetaBitbltRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -339,7 +340,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_BITBLT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaBitbltRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_EXTTEXTOUT & 0x00FF):

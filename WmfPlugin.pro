@@ -104,7 +104,8 @@ HEADERS = WmfHandler.h \
     Internal/MetaDibcreatepatternbrushRecord.h \
     Internal/MetaSelectclipregionRecord.h \
     Internal/MetaSelectobjectRecord.h \
-    Internal/MetaSelectpaletteRecord.h
+    Internal/MetaSelectpaletteRecord.h \
+    Internal/MetaBitbltRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -186,7 +187,8 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaDibcreatepatternbrushRecord.cpp \
     Internal/MetaSelectclipregionRecord.cpp \
     Internal/MetaSelectobjectRecord.cpp \
-    Internal/MetaSelectpaletteRecord.cpp
+    Internal/MetaSelectpaletteRecord.cpp \
+    Internal/MetaBitbltRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x
