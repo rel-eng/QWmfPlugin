@@ -54,7 +54,7 @@ MetaPlaceableRecord::MetaPlaceableRecord(QIODevice &device)
         throw std::runtime_error("Reserved is non-zero");
     }
     this->checksum = readUnsignedWord(device);
-    if(this->checksum != (0xCDD7 ^ 0x9AC^ this->left ^ this->top ^ this->right ^ this->bottom ^ this->tpi))
+    if(this->checksum != (0xCDD7 ^ 0x9AC6 ^ this->left ^ this->top ^ this->right ^ this->bottom ^ this->tpi))
     {
         throw std::runtime_error("Invalid checksum");
     }

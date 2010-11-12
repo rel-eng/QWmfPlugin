@@ -418,8 +418,8 @@ ConcurrentRecordLoader::ConcurrentRecordLoader(QIODevice &device) : processedRec
     bool eof = false;
     while(!eof)
     {
-        QByteArray recordHeader = device.peek(4);
-        if(recordHeader.size() != 4)
+        QByteArray recordHeader = device.peek(6);
+        if(recordHeader.size() != 6)
         {
             throw std::runtime_error("Unable to read metafile record header");
         }
