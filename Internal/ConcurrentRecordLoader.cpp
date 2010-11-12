@@ -87,6 +87,11 @@
 #include "MetaSelectobjectRecord.h"
 #include "MetaSelectpaletteRecord.h"
 #include "MetaBitbltRecord.h"
+#include "MetaDibbitbltRecord.h"
+#include "MetaDibstretchbltRecord.h"
+#include "MetaSetdibtodevRecord.h"
+#include "MetaStretchbltRecord.h"
+#include "MetaStretchdibRecord.h"
 #include "Utils/IOUtils.h"
 
 #include <stdexcept>
@@ -304,7 +309,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_STRETCHBLT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaStretchbltRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_ESCAPE & 0x00FF):
@@ -348,19 +353,19 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             validRecordType = true;
             break;
         case (META_SETDIBTODEV & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetdibtodevRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_DIBBITBLT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaDibbitbltRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_DIBSTRETCHBLT & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaDibstretchbltRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_STRETCHDIB & 0x00FF):
-            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEofRecord(recordBuffer)));
+            return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaStretchdibRecord(recordBuffer)));
             validRecordType = true;
             break;
         case (META_DELETEOBJECT & 0x00FF):

@@ -105,7 +105,12 @@ HEADERS = WmfHandler.h \
     Internal/MetaSelectclipregionRecord.h \
     Internal/MetaSelectobjectRecord.h \
     Internal/MetaSelectpaletteRecord.h \
-    Internal/MetaBitbltRecord.h
+    Internal/MetaBitbltRecord.h \
+    Internal/MetaDibbitbltRecord.h \
+    Internal/MetaDibstretchbltRecord.h \
+    Internal/MetaSetdibtodevRecord.h \
+    Internal/MetaStretchbltRecord.h \
+    Internal/MetaStretchdibRecord.h
 SOURCES = WmfPlugin.cpp \
     WmfHandler.cpp \
     Utils/IOUtils.cpp \
@@ -188,7 +193,12 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaSelectclipregionRecord.cpp \
     Internal/MetaSelectobjectRecord.cpp \
     Internal/MetaSelectpaletteRecord.cpp \
-    Internal/MetaBitbltRecord.cpp
+    Internal/MetaBitbltRecord.cpp \
+    Internal/MetaDibbitbltRecord.cpp \
+    Internal/MetaDibstretchbltRecord.cpp \
+    Internal/MetaSetdibtodevRecord.cpp \
+    Internal/MetaStretchbltRecord.cpp \
+    Internal/MetaStretchdibRecord.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x
