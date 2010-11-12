@@ -17,37 +17,46 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#include "WmfPlugin.h"
+#include "QWmfPlugin.h"
 
-#include "WmfHandler.h"
+#include "QWmfHandler.h"
 
-WmfPlugin::WmfPlugin()
+Q_EXPORT_PLUGIN2(qwmf, QWmfPlugin)
+
+QWmfPlugin::QWmfPlugin()
 {
 }
 
-WmfPlugin::~WmfPlugin()
+QWmfPlugin::~QWmfPlugin()
 {
 }
 
-QStringList WmfPlugin::keys() const
+QStringList QWmfPlugin::keys() const
 {
     return QStringList() << "wmf";
 }
 
-QImageIOPlugin::Capabilities WmfPlugin::capabilities(QIODevice *device, const QByteArray &format) const
+QImageIOPlugin::Capabilities QWmfPlugin::capabilities(QIODevice *device, const QByteArray &format) const
+{
+    if (format == "wmf")
     {
-        if (format == "wmf")
-        {
-            return Capabilities(CanRead);
-        }
-        if (!(format.isEmpty() && device->isOpen()))
-        {
-            return 0;
-        }
-        Capabilities cap;
-        if (device->isReadable() && WmfHandler::canRead(device))
-        {
-            cap |= CanRead;
-        }
-        return cap;
+        return Capabilities(CanRead);
     }
+    if (!(format.isEmpty() && device->isOpen()))
+    {
+        return 0;
+    }
+    Capabilities cap;
+    if (device->isReadable() && QWmfHandler::canRead(device))
+    {
+        cap |= CanRead;
+    }
+    return cap;
+}
+
+QImageIOHandler *QWmfPlugin::create(QIODevice *device, const QByteArray &format) const
+{
+    QImageIOHandler *handler = new QWmfHandler(device);
+    handler->setFormat(format);
+    return handler;
+}

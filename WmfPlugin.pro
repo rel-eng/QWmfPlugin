@@ -17,13 +17,12 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-TARGET  = wmf
+TARGET  = qwmf
 TEMPLATE = lib
 CONFIG = qt plugin
 VERSION = 1.0.0
 
-HEADERS = WmfHandler.h \
-    WmfPlugin.h \
+HEADERS = \
     Utils/IOUtils.h \
     Internal/MetaPlaceableRecord.h \
     Internal/MetaHeaderRecord.h \
@@ -110,9 +109,10 @@ HEADERS = WmfHandler.h \
     Internal/MetaDibstretchbltRecord.h \
     Internal/MetaSetdibtodevRecord.h \
     Internal/MetaStretchbltRecord.h \
-    Internal/MetaStretchdibRecord.h
-SOURCES = WmfPlugin.cpp \
-    WmfHandler.cpp \
+    Internal/MetaStretchdibRecord.h \
+    QWmfPlugin.h \
+    QWmfHandler.h
+SOURCES = \
     Utils/IOUtils.cpp \
     Internal/MetaPlaceableRecord.cpp \
     Internal/MetaHeaderRecord.cpp \
@@ -198,7 +198,9 @@ SOURCES = WmfPlugin.cpp \
     Internal/MetaDibstretchbltRecord.cpp \
     Internal/MetaSetdibtodevRecord.cpp \
     Internal/MetaStretchbltRecord.cpp \
-    Internal/MetaStretchdibRecord.cpp
+    Internal/MetaStretchdibRecord.cpp \
+    QWmfPlugin.cpp \
+    QWmfHandler.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

@@ -19,25 +19,31 @@
 
 #include <QBuffer>
 
-#include "WmfHandler.h"
+#include "QWmfHandler.h"
 #include "Internal/MetaPlaceableRecord.h"
 #include "Internal/MetaHeaderRecord.h"
 #include "Internal/ConcurrentRecordLoader.h"
 
-WmfHandler::WmfHandler()
+QWmfHandler::QWmfHandler(QIODevice *device)
+{
+    setDevice(device);
+}
+
+QWmfHandler::~QWmfHandler()
 {
 }
 
-WmfHandler::~WmfHandler()
+bool QWmfHandler::canRead() const
 {
+    return device()->peek(4) == "\x9A\xC6\xCD\xD7";
 }
 
-bool WmfHandler::canRead(QIODevice *device)
+bool QWmfHandler::canRead(QIODevice *device)
 {
     return device->peek(4) == "\x9A\xC6\xCD\xD7";
 }
 
-bool WmfHandler::read(QImage *image)
+bool QWmfHandler::read(QImage *image)
 {
     MetaPlaceableRecord header;
     MetaHeaderRecord metaHeader;
@@ -81,12 +87,12 @@ bool WmfHandler::read(QImage *image)
     return true;
 }
 
-bool WmfHandler::supportsOption(ImageOption option) const
+bool QWmfHandler::supportsOption(ImageOption option) const
 {
     return option == Size;
 }
 
-QVariant WmfHandler::option(ImageOption option) const
+QVariant QWmfHandler::option(ImageOption option) const
 {
     if (option == Size)
     {

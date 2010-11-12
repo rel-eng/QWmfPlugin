@@ -1,4 +1,4 @@
-/* Wmf handler definition.
+/* WMF plugin main definition.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,27 +17,23 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef WMFHANDLER_H
-#define WMFHANDLER_H
+#ifndef QWMFPLUGIN_H
+#define QWMFPLUGIN_H
 
-#include <QImageIOHandler>
-#include <QImage>
-#include <QByteArray>
+#include <QImageIOPlugin>
+#include <QStringList>
 #include <QIODevice>
-#include <QVariant>
+#include <QByteArray>
+#include <QImageIOHandler>
 
-class WmfHandler : public QImageIOHandler
+class QWmfPlugin : public QImageIOPlugin
 {
 public:
-    WmfHandler();
-    ~WmfHandler();
-    bool canRead() const;
-    bool read(QImage *image);
-    QByteArray name() const;
-    static bool canRead(QIODevice *device);
-    QVariant option(ImageOption option) const;
-    void setOption(ImageOption option, const QVariant &value);
-    bool supportsOption(ImageOption option) const;
+    QWmfPlugin();
+    virtual ~QWmfPlugin();
+    virtual QStringList keys() const;
+    virtual Capabilities capabilities(QIODevice *device, const QByteArray &format) const;
+    virtual QImageIOHandler *create(QIODevice *device, const QByteArray &format = QByteArray()) const;
 };
 
-#endif // WMFHANDLER_H
+#endif // QWMFPLUGIN_H
