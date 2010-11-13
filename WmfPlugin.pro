@@ -115,7 +115,9 @@ HEADERS = \
     Utils/BinaryHeap.h \
     Internal/GraphicsObject.h \
     Internal/ObjectTable.h \
-    Internal/MetafilePlayer.h
+    Internal/MetafilePlayer.h \
+    Internal/DeviceContext.h \
+    Internal/GraphicsObjectBrush.h
 SOURCES = \
     Utils/IOUtils.cpp \
     Internal/MetaPlaceableRecord.cpp \
@@ -208,7 +210,9 @@ SOURCES = \
     Utils/BinaryHeap.cpp \
     Internal/GraphicsObject.cpp \
     Internal/ObjectTable.cpp \
-    Internal/MetafilePlayer.cpp
+    Internal/MetafilePlayer.cpp \
+    Internal/DeviceContext.cpp \
+    Internal/GraphicsObjectBrush.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

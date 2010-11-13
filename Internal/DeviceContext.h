@@ -1,4 +1,4 @@
-/* MetafilePlayer definition.
+/* DeviceContext definition.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,24 +17,23 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef METAFILEPLAYER_H
-#define METAFILEPLAYER_H
+#ifndef DEVICECONTEXT_H
+#define DEVICECONTEXT_H
 
 #include <QtGlobal>
-#include <QImage>
 
-#include "MetaPlaceableRecord.h"
-#include "MetaHeaderRecord.h"
-#include "ConcurrentRecordLoader.h"
+#include <cstddef>
 
-class MetafilePlayer
+#include "ObjectTable.h"
+
+class DeviceContext
 {
 private:
-    Q_DISABLE_COPY(MetafilePlayer)
+    Q_DISABLE_COPY(DeviceContext)
+    ObjectTable graphicsObjects;
 public:
-    MetafilePlayer();
-    virtual ~MetafilePlayer();
-    void playMetafile(const MetaPlaceableRecord &placeableRecord, const MetaHeaderRecord &headerRecord, const ConcurrentRecordLoader &recordLoader, QImage &outputImage);
+    DeviceContext(size_t numberOfObjects);
+    virtual ~DeviceContext();
 };
 
-#endif // METAFILEPLAYER_H
+#endif // DEVICECONTEXT_H

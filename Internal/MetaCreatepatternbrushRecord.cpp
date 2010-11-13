@@ -115,7 +115,7 @@ quint8 MetaCreatepatternbrushRecord::getBitsPerPixel() const
     return this->bitsPerPixel;
 }
 
-QImage MetaCreatepatternbrushRecord::getPattern()
+QImage MetaCreatepatternbrushRecord::getPattern() const
 {
     QImage image(this->width, this->height, QImage::Format_ARGB32);
     if(this->bitsPerPixel == 24)
@@ -138,7 +138,7 @@ QImage MetaCreatepatternbrushRecord::getPattern()
     return image;
 }
 
-QImage MetaCreatepatternbrushRecord::getPattern(const PaletteObject &palette)
+QImage MetaCreatepatternbrushRecord::getPattern(const PaletteObject &palette) const
 {
     QImage image(this->width, this->height, QImage::Format_ARGB32);
     if(this->bitsPerPixel == 1)
@@ -225,4 +225,16 @@ QImage MetaCreatepatternbrushRecord::getPattern(const PaletteObject &palette)
         }
     }
     return image;
+}
+
+bool MetaCreatepatternbrushRecord::isPaletteRequired() const
+{
+    if(this->bitsPerPixel == 24)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }

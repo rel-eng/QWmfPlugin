@@ -21,7 +21,7 @@
 
 #include <stdexcept>
 
-#include "ObjectTable.h"
+#include "DeviceContext.h"
 #include "MetaEofRecord.h"
 #include "MetaExcludecliprectRecord.h"
 #include "MetaIntersectcliprectRecord.h"
@@ -103,7 +103,7 @@ MetafilePlayer::~MetafilePlayer()
 
 void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, const MetaHeaderRecord &headerRecord, const ConcurrentRecordLoader &recordLoader, QImage &outputImage)
 {
-    ObjectTable graphicsObjects(headerRecord.getNumberOfObjects());
+    DeviceContext deviceContext(static_cast<size_t>(headerRecord.getNumberOfObjects()));
     for(int recordIndex = 0; recordIndex < recordLoader.getRecordsCount(); recordIndex++)
     {
         QSharedPointer<MetafileRecord> currentRecord = recordLoader.getRecord(recordIndex);

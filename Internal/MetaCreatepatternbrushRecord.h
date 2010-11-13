@@ -64,8 +64,9 @@ public:
     quint16 getWidth() const;
     quint16 getHeight() const;
     quint8 getBitsPerPixel() const;
-    QImage getPattern();
-    QImage getPattern(const PaletteObject &palette);
+    QImage getPattern() const;
+    QImage getPattern(const PaletteObject &palette) const;
+    bool isPaletteRequired() const;
 };
 
 #endif // METACREATEPATTERNBRUSHRECORD_H
