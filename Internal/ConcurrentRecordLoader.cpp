@@ -112,7 +112,7 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
         throw ConcurrentRecordLoaderException();
     }
     recordBuffer.seek(Q_INT64_C(0));
-    bool validRecordType = false;
+    bool validRecordType = true;
     try
     {
         switch(recordFunction)
@@ -122,279 +122,210 @@ QSharedPointer<MetafileRecord> parseRecord(const QByteArray &rawRecord)
             break;
         case (META_REALIZEPALETTE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaRealizepaletteRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETPALENTRIES & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetpalentriesRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETBKMODE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetbkmodeRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETMAPMODE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetmapmodeRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETROP2 & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetrop2Record(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETRELABS & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetrelabsRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETPOLYFILLMODE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetpolyfillmodeRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETSTRETCHBLTMODE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetstretchbltmodeRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETTEXTCHAREXTRA & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSettextcharextraRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_RESTOREDC & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaRestoredcRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_RESIZEPALETTE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaResizepaletteRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_DIBCREATEPATTERNBRUSH & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaDibcreatepatternbrushRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETLAYOUT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetlayoutRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETBKCOLOR & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetbkcolorRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETTEXTCOLOR & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSettextcolorRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_OFFSETVIEWPORTORG & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaOffsetviewportorgRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_LINETO & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaLinetoRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_MOVETO & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaMovetoRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_OFFSETCLIPRGN & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaOffsetcliprgnRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_FILLREGION & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaFillregionRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETMAPPERFLAGS & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetmapperflagsRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SELECTPALETTE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSelectpaletteRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_POLYGON & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPolygonRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_POLYLINE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPolylineRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETTEXTJUSTIFICATION & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSettextjustificationRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETWINDOWORG & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetwindoworgRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETWINDOWEXT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetwindowextRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETVIEWPORTORG & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetviewportorgRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETVIEWPORTEXT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetviewportextRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_OFFSETWINDOWORG & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaOffsetwindoworgRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SCALEWINDOWEXT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaScalewindowextRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SCALEVIEWPORTEXT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaScaleviewportextRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_EXCLUDECLIPRECT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaExcludecliprectRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_INTERSECTCLIPRECT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaIntersectcliprectRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_ELLIPSE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEllipseRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_FLOODFILL & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaFloodfillRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_FRAMEREGION & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaFrameregionRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_ANIMATEPALETTE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaAnimatepaletteRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_TEXTOUT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaTextoutRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_POLYPOLYGON & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPolypolygonRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_EXTFLOODFILL & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaExtfloodfillRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_RECTANGLE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaRectangleRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETPIXEL & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetpixelRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_ROUNDRECT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaRoundrectRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_PATBLT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPatbltRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SAVEDC & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSavedcRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_PIE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPieRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_STRETCHBLT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaStretchbltRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_ESCAPE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaEscapeRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_INVERTREGION & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaInvertregionRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_PAINTREGION & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaPaintregionRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SELECTCLIPREGION & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSelectclipregionRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SELECTOBJECT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSelectobjectRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETTEXTALIGN & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSettextalignRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_ARC & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaArcRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_CHORD & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaChordRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_BITBLT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaBitbltRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_EXTTEXTOUT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaExttextoutRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_SETDIBTODEV & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaSetdibtodevRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_DIBBITBLT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaDibbitbltRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_DIBSTRETCHBLT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaDibstretchbltRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_STRETCHDIB & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaStretchdibRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_DELETEOBJECT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaDeleteobjectRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_CREATEPALETTE & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaCreatepaletteRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_CREATEPATTERNBRUSH & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaCreatepatternbrushRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_CREATEPENINDIRECT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaCreatepenindirectRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_CREATEFONTINDIRECT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaCreatefontindirectRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_CREATEBRUSHINDIRECT & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaCreatebrushindirectRecord(recordBuffer)));
-            validRecordType = true;
             break;
         case (META_CREATEREGION & 0x00FF):
             return QSharedPointer<MetafileRecord>(dynamic_cast<MetafileRecord *>(new MetaCreateregionRecord(recordBuffer)));
-            validRecordType = true;
             break;
         default:
             validRecordType = false;

@@ -111,7 +111,11 @@ HEADERS = \
     Internal/MetaStretchbltRecord.h \
     Internal/MetaStretchdibRecord.h \
     QWmfPlugin.h \
-    QWmfHandler.h
+    QWmfHandler.h \
+    Utils/BinaryHeap.h \
+    Internal/GraphicsObject.h \
+    Internal/ObjectTable.h \
+    Internal/MetafilePlayer.h
 SOURCES = \
     Utils/IOUtils.cpp \
     Internal/MetaPlaceableRecord.cpp \
@@ -200,7 +204,11 @@ SOURCES = \
     Internal/MetaStretchbltRecord.cpp \
     Internal/MetaStretchdibRecord.cpp \
     QWmfPlugin.cpp \
-    QWmfHandler.cpp
+    QWmfHandler.cpp \
+    Utils/BinaryHeap.cpp \
+    Internal/GraphicsObject.cpp \
+    Internal/ObjectTable.cpp \
+    Internal/MetafilePlayer.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x
