@@ -25,6 +25,8 @@
 #include <cstddef>
 
 #include "ObjectTable.h"
+#include "MetaCreatebrushindirectRecord.h"
+#include "MetaCreatepatternbrushRecord.h"
 
 class DeviceContext
 {
@@ -34,6 +36,8 @@ private:
 public:
     DeviceContext(size_t numberOfObjects);
     virtual ~DeviceContext();
+    void CreateBrushIndirect(const MetaCreatebrushindirectRecord &record);
+    void CreatePatternBrush(const MetaCreatepatternbrushRecord &record);
 };
 
 #endif // DEVICECONTEXT_H

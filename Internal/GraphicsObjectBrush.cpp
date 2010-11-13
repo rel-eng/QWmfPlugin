@@ -61,7 +61,14 @@ bool GraphicsObjectBrush::isPaletteRequired() const
     }
     else
     {
-        return false;
+        if(this->brushType == INDIRECT_BRUSH)
+        {
+            return false;
+        }
+        else
+        {
+            throw std::runtime_error("Brush is empty");
+        }
     }
 }
 
@@ -79,62 +86,69 @@ QBrush GraphicsObjectBrush::getBrush() const
     }
     else
     {
-        switch(this->indirectBrush.getBrush().getBrushStyle())
+        if(this->brushType == INDIRECT_BRUSH)
         {
-        case BS_SOLID:
-            return QBrush(QColor(this->indirectBrush.getBrush().getColor()));
-            break;
-        case BS_NULL:
-            return QBrush(Qt::NoBrush);
-            break;
-        case BS_HATCHED:
-            switch(this->indirectBrush.getBrush().getBrushHatch())
+            switch(this->indirectBrush.getBrush().getBrushStyle())
             {
-            case HS_HORIZONTAL:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::HorPattern);
+            case BS_SOLID:
+                return QBrush(QColor(this->indirectBrush.getBrush().getColor()));
                 break;
-            case HS_VERTICAL:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::VerPattern);
+            case BS_NULL:
+                return QBrush(Qt::NoBrush);
                 break;
-            case HS_FDIAGONAL:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::FDiagPattern);
+            case BS_HATCHED:
+                switch(this->indirectBrush.getBrush().getBrushHatch())
+                {
+                case HS_HORIZONTAL:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::HorPattern);
+                    break;
+                case HS_VERTICAL:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::VerPattern);
+                    break;
+                case HS_FDIAGONAL:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::FDiagPattern);
+                    break;
+                case HS_BDIAGONAL:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::BDiagPattern);
+                    break;
+                case HS_CROSS:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::CrossPattern);
+                    break;
+                case HS_DIAGCROSS:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::DiagCrossPattern);
+                    break;
+                default:
+                    throw std::runtime_error("Unknown brush hatch");
+                }
                 break;
-            case HS_BDIAGONAL:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::BDiagPattern);
+            case BS_PATTERN:
+                return QBrush(QColor(0,0,0));
                 break;
-            case HS_CROSS:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::CrossPattern);
+            case BS_INDEXED:
+                return QBrush(Qt::NoBrush);
                 break;
-            case HS_DIAGCROSS:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::DiagCrossPattern);
+            case BS_DIBPATTERN:
+                return QBrush(QColor(0,0,0));
+                break;
+            case BS_DIBPATTERNPT:
+                return QBrush(QColor(0,0,0));
+                break;
+            case BS_PATTERN8X8:
+                return QBrush(Qt::NoBrush);
+                break;
+            case BS_DIBPATTERN8X8:
+                return QBrush(Qt::NoBrush);
+                break;
+            case BS_MONOPATTERN:
+                return QBrush(Qt::NoBrush);
                 break;
             default:
-                throw std::runtime_error("Unknown brush hatch");
+                throw std::runtime_error("Unknown brush style");
             }
-            break;
-        case BS_PATTERN:
-            return QBrush(QColor(0,0,0));
-            break;
-        case BS_INDEXED:
-            return QBrush(Qt::NoBrush);
-            break;
-        case BS_DIBPATTERN:
-            return QBrush(QColor(0,0,0));
-            break;
-        case BS_DIBPATTERNPT:
-            return QBrush(QColor(0,0,0));
-            break;
-        case BS_PATTERN8X8:
-            return QBrush(Qt::NoBrush);
-            break;
-        case BS_DIBPATTERN8X8:
-            return QBrush(Qt::NoBrush);
-            break;
-        case BS_MONOPATTERN:
-            return QBrush(Qt::NoBrush);
-            break;
-        default:
-            throw std::runtime_error("Unknown brush style");
+        }
+        else
+        {
+            throw std::runtime_error("Brush is empty");
         }
     }
 }
@@ -153,62 +167,69 @@ QBrush GraphicsObjectBrush::getBrush(const PaletteObject &palette) const
     }
     else
     {
-        switch(this->indirectBrush.getBrush().getBrushStyle())
+        if(this->brushType == INDIRECT_BRUSH)
         {
-        case BS_SOLID:
-            return QBrush(QColor(this->indirectBrush.getBrush().getColor()));
-            break;
-        case BS_NULL:
-            return QBrush(Qt::NoBrush);
-            break;
-        case BS_HATCHED:
-            switch(this->indirectBrush.getBrush().getBrushHatch())
+            switch(this->indirectBrush.getBrush().getBrushStyle())
             {
-            case HS_HORIZONTAL:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::HorPattern);
+            case BS_SOLID:
+                return QBrush(QColor(this->indirectBrush.getBrush().getColor()));
                 break;
-            case HS_VERTICAL:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::VerPattern);
+            case BS_NULL:
+                return QBrush(Qt::NoBrush);
                 break;
-            case HS_FDIAGONAL:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::FDiagPattern);
+            case BS_HATCHED:
+                switch(this->indirectBrush.getBrush().getBrushHatch())
+                {
+                case HS_HORIZONTAL:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::HorPattern);
+                    break;
+                case HS_VERTICAL:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::VerPattern);
+                    break;
+                case HS_FDIAGONAL:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::FDiagPattern);
+                    break;
+                case HS_BDIAGONAL:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::BDiagPattern);
+                    break;
+                case HS_CROSS:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::CrossPattern);
+                    break;
+                case HS_DIAGCROSS:
+                    return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::DiagCrossPattern);
+                    break;
+                default:
+                    throw std::runtime_error("Unknown brush hatch");
+                }
                 break;
-            case HS_BDIAGONAL:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::BDiagPattern);
+            case BS_PATTERN:
+                return QBrush(QColor(0,0,0));
                 break;
-            case HS_CROSS:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::CrossPattern);
+            case BS_INDEXED:
+                return QBrush(Qt::NoBrush);
                 break;
-            case HS_DIAGCROSS:
-                return QBrush(QColor(this->indirectBrush.getBrush().getColor()), Qt::DiagCrossPattern);
+            case BS_DIBPATTERN:
+                return QBrush(QColor(0,0,0));
+                break;
+            case BS_DIBPATTERNPT:
+                return QBrush(QColor(0,0,0));
+                break;
+            case BS_PATTERN8X8:
+                return QBrush(Qt::NoBrush);
+                break;
+            case BS_DIBPATTERN8X8:
+                return QBrush(Qt::NoBrush);
+                break;
+            case BS_MONOPATTERN:
+                return QBrush(Qt::NoBrush);
                 break;
             default:
-                throw std::runtime_error("Unknown brush hatch");
+                throw std::runtime_error("Unknown brush style");
             }
-            break;
-        case BS_PATTERN:
-            return QBrush(QColor(0,0,0));
-            break;
-        case BS_INDEXED:
-            return QBrush(Qt::NoBrush);
-            break;
-        case BS_DIBPATTERN:
-            return QBrush(QColor(0,0,0));
-            break;
-        case BS_DIBPATTERNPT:
-            return QBrush(QColor(0,0,0));
-            break;
-        case BS_PATTERN8X8:
-            return QBrush(Qt::NoBrush);
-            break;
-        case BS_DIBPATTERN8X8:
-            return QBrush(Qt::NoBrush);
-            break;
-        case BS_MONOPATTERN:
-            return QBrush(Qt::NoBrush);
-            break;
-        default:
-            throw std::runtime_error("Unknown brush style");
+        }
+        else
+        {
+            throw std::runtime_error("Brush is empty");
         }
     }
 }

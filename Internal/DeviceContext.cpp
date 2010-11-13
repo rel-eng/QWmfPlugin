@@ -19,10 +19,25 @@
 
 #include "DeviceContext.h"
 
+#include <QSharedPointer>
+
+#include "GraphicsObject.h"
+#include "GraphicsObjectBrush.h"
+
 DeviceContext::DeviceContext(size_t numberOfObjects) : graphicsObjects(numberOfObjects)
 {
 }
 
 DeviceContext::~DeviceContext()
 {
+}
+
+void DeviceContext::CreateBrushIndirect(const MetaCreatebrushindirectRecord &record)
+{
+    this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObjectBrush *>(new GraphicsObjectBrush(record))));
+}
+
+void DeviceContext::CreatePatternBrush(const MetaCreatepatternbrushRecord &record)
+{
+    this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObjectBrush *>(new GraphicsObjectBrush(record))));
 }

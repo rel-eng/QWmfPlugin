@@ -240,12 +240,14 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_CREATEPALETTE & 0x00FF):
             break;
         case (META_CREATEPATTERNBRUSH & 0x00FF):
+            deviceContext.CreatePatternBrush(currentRecord.dynamicCast<MetaCreatepatternbrushRecord>().operator *());
             break;
         case (META_CREATEPENINDIRECT & 0x00FF):
             break;
         case (META_CREATEFONTINDIRECT & 0x00FF):
             break;
         case (META_CREATEBRUSHINDIRECT & 0x00FF):
+            deviceContext.CreateBrushIndirect(currentRecord.dynamicCast<MetaCreatebrushindirectRecord>().operator *());
             break;
         case (META_CREATEREGION & 0x00FF):
             break;
