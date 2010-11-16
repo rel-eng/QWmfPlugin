@@ -23,6 +23,7 @@
 
 #include "GraphicsObject.h"
 #include "GraphicsObjectBrush.h"
+#include "GraphicsObjectFont.h"
 
 DeviceContext::DeviceContext(size_t numberOfObjects) : graphicsObjects(numberOfObjects)
 {
@@ -34,10 +35,15 @@ DeviceContext::~DeviceContext()
 
 void DeviceContext::CreateBrushIndirect(const MetaCreatebrushindirectRecord &record)
 {
-    this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObjectBrush *>(new GraphicsObjectBrush(record))));
+    this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObject *>(new GraphicsObjectBrush(record))));
 }
 
 void DeviceContext::CreatePatternBrush(const MetaCreatepatternbrushRecord &record)
 {
-    this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObjectBrush *>(new GraphicsObjectBrush(record))));
+    this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObject *>(new GraphicsObjectBrush(record))));
+}
+
+void DeviceContext::CreateFontIndirect(const MetaCreatefontindirectRecord &record)
+{
+    this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObject *>(new GraphicsObjectFont(record))));
 }

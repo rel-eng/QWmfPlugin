@@ -245,6 +245,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_CREATEPENINDIRECT & 0x00FF):
             break;
         case (META_CREATEFONTINDIRECT & 0x00FF):
+            deviceContext.CreateFontIndirect(currentRecord.dynamicCast<MetaCreatefontindirectRecord>().operator *());
             break;
         case (META_CREATEBRUSHINDIRECT & 0x00FF):
             deviceContext.CreateBrushIndirect(currentRecord.dynamicCast<MetaCreatebrushindirectRecord>().operator *());

@@ -1,4 +1,4 @@
-/* DeviceContext definition.
+/* GraphicsObjectFont definition.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,29 +17,32 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef DEVICECONTEXT_H
-#define DEVICECONTEXT_H
+#ifndef GRAPHICSOBJECTFONT_H
+#define GRAPHICSOBJECTFONT_H
 
 #include <QtGlobal>
+#include <QFont>
+#include <QTextCodec>
 
-#include <cstddef>
-
-#include "ObjectTable.h"
-#include "MetaCreatebrushindirectRecord.h"
-#include "MetaCreatepatternbrushRecord.h"
+#include "GraphicsObject.h"
 #include "MetaCreatefontindirectRecord.h"
 
-class DeviceContext
+class GraphicsObjectFont : public GraphicsObject
 {
 private:
-    Q_DISABLE_COPY(DeviceContext)
-    ObjectTable graphicsObjects;
+    bool isValidFont;
+    MetaCreatefontindirectRecord record;
 public:
-    DeviceContext(size_t numberOfObjects);
-    virtual ~DeviceContext();
-    void CreateBrushIndirect(const MetaCreatebrushindirectRecord &record);
-    void CreatePatternBrush(const MetaCreatepatternbrushRecord &record);
-    void CreateFontIndirect(const MetaCreatefontindirectRecord &record);
+    GraphicsObjectFont();
+    GraphicsObjectFont(const MetaCreatefontindirectRecord &record);
+    GraphicsObjectFont(const GraphicsObjectFont &rhs);
+    virtual ~GraphicsObjectFont();
+    GraphicsObjectFont &operator=(const GraphicsObjectFont &rhs);
+    bool isValid() const;
+    QFont getFont(qreal pointsInUnitVert) const;
+    QTextCodec *getTextCodec() const;
+    qreal getOrientation() const;
+    qreal getEscapement() const;
 };
 
-#endif // DEVICECONTEXT_H
+#endif // GRAPHICSOBJECTFONT_H
