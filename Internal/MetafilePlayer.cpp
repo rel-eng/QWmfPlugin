@@ -107,7 +107,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
     for(int recordIndex = 0; recordIndex < recordLoader.getRecordsCount(); recordIndex++)
     {
         QSharedPointer<MetafileRecord> currentRecord = recordLoader.getRecord(recordIndex);
-        switch(currentRecord->getRecordFunction())
+        switch(currentRecord->getRecordFunction() & 0x00FF)
         {
         case (META_EOF & 0x00FF):
             break;

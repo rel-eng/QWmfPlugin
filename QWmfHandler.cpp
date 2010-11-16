@@ -23,6 +23,7 @@
 #include "Internal/MetaPlaceableRecord.h"
 #include "Internal/MetaHeaderRecord.h"
 #include "Internal/ConcurrentRecordLoader.h"
+#include "Internal/MetafilePlayer.h"
 
 QWmfHandler::QWmfHandler(QIODevice *device)
 {
@@ -74,6 +75,8 @@ bool QWmfHandler::read(QImage *image)
     try
     {
         ConcurrentRecordLoader recordLoader(*device());
+        MetafilePlayer player;
+        player.playMetafile(header, metaHeader, recordLoader, result);
     }
     catch(...)
     {

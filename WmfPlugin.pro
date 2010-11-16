@@ -208,7 +208,6 @@ SOURCES = \
     Internal/MetaStretchdibRecord.cpp \
     QWmfPlugin.cpp \
     QWmfHandler.cpp \
-    Utils/BinaryHeap.cpp \
     Internal/GraphicsObject.cpp \
     Internal/ObjectTable.cpp \
     Internal/MetafilePlayer.cpp \
