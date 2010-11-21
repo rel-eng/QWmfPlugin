@@ -25,6 +25,7 @@
 #include "GraphicsObjectBrush.h"
 #include "GraphicsObjectFont.h"
 #include "GraphicsObjectPen.h"
+#include "GraphicsObjectPalette.h"
 
 DeviceContext::DeviceContext(size_t numberOfObjects) : graphicsObjects(numberOfObjects)
 {
@@ -52,4 +53,9 @@ void DeviceContext::CreateFontIndirect(const MetaCreatefontindirectRecord &recor
 void DeviceContext::CreatePenIndirect(const MetaCreatepenindirectRecord &record)
 {
     this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObject *>(new GraphicsObjectPen(record))));
+}
+
+void DeviceContext::CreatePalette(const MetaCreatepaletteRecord &record)
+{
+    this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObject *>(new GraphicsObjectPalette(record))));
 }

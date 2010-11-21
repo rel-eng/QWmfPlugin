@@ -29,6 +29,7 @@
 #include "MetaCreatepatternbrushRecord.h"
 #include "MetaCreatefontindirectRecord.h"
 #include "MetaCreatepenindirectRecord.h"
+#include "MetaCreatepaletteRecord.h"
 
 class DeviceContext
 {
@@ -42,6 +43,7 @@ public:
     void CreatePatternBrush(const MetaCreatepatternbrushRecord &record);
     void CreateFontIndirect(const MetaCreatefontindirectRecord &record);
     void CreatePenIndirect(const MetaCreatepenindirectRecord &record);
+    void CreatePalette(const MetaCreatepaletteRecord &record);
 };
 
 #endif // DEVICECONTEXT_H

@@ -238,6 +238,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_DELETEOBJECT & 0x00FF):
             break;
         case (META_CREATEPALETTE & 0x00FF):
+            deviceContext.CreatePalette(currentRecord.dynamicCast<MetaCreatepaletteRecord>().operator *());
             break;
         case (META_CREATEPATTERNBRUSH & 0x00FF):
             deviceContext.CreatePatternBrush(currentRecord.dynamicCast<MetaCreatepatternbrushRecord>().operator *());

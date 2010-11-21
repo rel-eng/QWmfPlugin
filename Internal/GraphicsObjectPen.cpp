@@ -55,6 +55,10 @@ bool GraphicsObjectPen::isValid() const
 
 QPen GraphicsObjectPen::getPen(qreal pixelInUnitHor) const
 {
+    if(!this->isValidPen)
+    {
+        throw std::runtime_error("Invalid pen graphics object");
+    }
     QPen result;
     result.setWidthF(pixelInUnitHor * static_cast<qreal>(this->record.getPen().getWidth()));
     result.setColor(QColor(this->record.getPen().getColor()));
