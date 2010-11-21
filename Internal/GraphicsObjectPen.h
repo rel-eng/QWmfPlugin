@@ -1,4 +1,4 @@
-/* DeviceContext definition.
+/* GraphicsObjectPen definition.
 
    Copyright (C) 2010 rel-eng
 
@@ -17,31 +17,28 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>.  */
 
-#ifndef DEVICECONTEXT_H
-#define DEVICECONTEXT_H
+#ifndef GRAPHICSOBJECTPEN_H
+#define GRAPHICSOBJECTPEN_H
 
 #include <QtGlobal>
+#include <QPen>
 
-#include <cstddef>
-
-#include "ObjectTable.h"
-#include "MetaCreatebrushindirectRecord.h"
-#include "MetaCreatepatternbrushRecord.h"
-#include "MetaCreatefontindirectRecord.h"
+#include "GraphicsObject.h"
 #include "MetaCreatepenindirectRecord.h"
 
-class DeviceContext
+class GraphicsObjectPen : public GraphicsObject
 {
 private:
-    Q_DISABLE_COPY(DeviceContext)
-    ObjectTable graphicsObjects;
+    bool isValidPen;
+    MetaCreatepenindirectRecord record;
 public:
-    DeviceContext(size_t numberOfObjects);
-    virtual ~DeviceContext();
-    void CreateBrushIndirect(const MetaCreatebrushindirectRecord &record);
-    void CreatePatternBrush(const MetaCreatepatternbrushRecord &record);
-    void CreateFontIndirect(const MetaCreatefontindirectRecord &record);
-    void CreatePenIndirect(const MetaCreatepenindirectRecord &record);
+    GraphicsObjectPen();
+    GraphicsObjectPen(const MetaCreatepenindirectRecord &record);
+    GraphicsObjectPen(const GraphicsObjectPen &rhs);
+    virtual ~GraphicsObjectPen();
+    GraphicsObjectPen &operator=(const GraphicsObjectPen &rhs);
+    bool isValid() const;
+    QPen getPen(qreal pixelInUnitHor) const;
 };
 
-#endif // DEVICECONTEXT_H
+#endif // GRAPHICSOBJECTPEN_H

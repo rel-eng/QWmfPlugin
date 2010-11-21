@@ -29,7 +29,7 @@ GraphicsObjectFont::GraphicsObjectFont(const MetaCreatefontindirectRecord &recor
 {
 }
 
-GraphicsObjectFont::GraphicsObjectFont(const GraphicsObjectFont &rhs) : GraphicsObject(rhs), isValidFont(isValidFont), record(record)
+GraphicsObjectFont::GraphicsObjectFont(const GraphicsObjectFont &rhs) : GraphicsObject(rhs), isValidFont(rhs.isValidFont), record(rhs.record)
 {
 }
 

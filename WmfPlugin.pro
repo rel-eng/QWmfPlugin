@@ -118,7 +118,8 @@ HEADERS = \
     Internal/MetafilePlayer.h \
     Internal/DeviceContext.h \
     Internal/GraphicsObjectBrush.h \
-    Internal/GraphicsObjectFont.h
+    Internal/GraphicsObjectFont.h \
+    Internal/GraphicsObjectPen.h
 SOURCES = \
     Utils/IOUtils.cpp \
     Internal/MetaPlaceableRecord.cpp \
@@ -213,7 +214,8 @@ SOURCES = \
     Internal/MetafilePlayer.cpp \
     Internal/DeviceContext.cpp \
     Internal/GraphicsObjectBrush.cpp \
-    Internal/GraphicsObjectFont.cpp
+    Internal/GraphicsObjectFont.cpp \
+    Internal/GraphicsObjectPen.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x
