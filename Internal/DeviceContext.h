@@ -30,6 +30,7 @@
 #include "MetaCreatefontindirectRecord.h"
 #include "MetaCreatepenindirectRecord.h"
 #include "MetaCreatepaletteRecord.h"
+#include "MetaCreateregionRecord.h"
 
 class DeviceContext
 {
@@ -44,6 +45,7 @@ public:
     void CreateFontIndirect(const MetaCreatefontindirectRecord &record);
     void CreatePenIndirect(const MetaCreatepenindirectRecord &record);
     void CreatePalette(const MetaCreatepaletteRecord &record);
+    void CreateRegion(const MetaCreateregionRecord &record);
 };
 
 #endif // DEVICECONTEXT_H

@@ -120,7 +120,8 @@ HEADERS = \
     Internal/GraphicsObjectBrush.h \
     Internal/GraphicsObjectFont.h \
     Internal/GraphicsObjectPen.h \
-    Internal/GraphicsObjectPalette.h
+    Internal/GraphicsObjectPalette.h \
+    Internal/GraphicsObjectRegion.h
 SOURCES = \
     Utils/IOUtils.cpp \
     Internal/MetaPlaceableRecord.cpp \
@@ -217,7 +218,8 @@ SOURCES = \
     Internal/GraphicsObjectBrush.cpp \
     Internal/GraphicsObjectFont.cpp \
     Internal/GraphicsObjectPen.cpp \
-    Internal/GraphicsObjectPalette.cpp
+    Internal/GraphicsObjectPalette.cpp \
+    Internal/GraphicsObjectRegion.cpp
 QMAKE_CXXFLAGS_DEBUG += -std=c++0x
 QMAKE_CXXFLAGS_RELEASE += -std=c++0x
 QMAKE_CFLAGS_DEBUG += -std=c++0x

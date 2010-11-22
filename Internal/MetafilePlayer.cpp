@@ -253,6 +253,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
             deviceContext.CreateBrushIndirect(currentRecord.dynamicCast<MetaCreatebrushindirectRecord>().operator *());
             break;
         case (META_CREATEREGION & 0x00FF):
+            deviceContext.CreateRegion(currentRecord.dynamicCast<MetaCreateregionRecord>().operator *());
             break;
         default:
             throw std::runtime_error("Unknown record function");
