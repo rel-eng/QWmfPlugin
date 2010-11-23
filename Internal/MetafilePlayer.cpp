@@ -225,6 +225,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_SELECTCLIPREGION & 0x00FF):
             break;
         case (META_SELECTOBJECT & 0x00FF):
+            deviceContext.SelectObject(currentRecord.dynamicCast<MetaSelectobjectRecord>().operator *());
             break;
         case (META_SETTEXTALIGN & 0x00FF):
             break;
@@ -245,6 +246,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_STRETCHDIB & 0x00FF):
             break;
         case (META_DELETEOBJECT & 0x00FF):
+            deviceContext.DeleteObject(currentRecord.dynamicCast<MetaDeleteobjectRecord>().operator *());
             break;
         case (META_CREATEPALETTE & 0x00FF):
             deviceContext.CreatePalette(currentRecord.dynamicCast<MetaCreatepaletteRecord>().operator *());
