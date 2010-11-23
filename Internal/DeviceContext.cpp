@@ -28,7 +28,7 @@
 #include "GraphicsObjectPalette.h"
 #include "GraphicsObjectRegion.h"
 
-DeviceContext::DeviceContext(size_t numberOfObjects) : graphicsObjects(numberOfObjects), windowOriginX(0.0), windowOriginY(0.0), windowExtentX(1.0), windowExtentY(1.0), viewportOriginX(0.0), viewportOriginY(0.0), viewportExtentX(1.0), viewportExtentY(1.0), mappingMode(MM_ANISOTROPIC)
+DeviceContext::DeviceContext(size_t numberOfObjects) : graphicsObjects(numberOfObjects), windowOriginX(0.0), windowOriginY(0.0), windowExtentX(1.0), windowExtentY(1.0), viewportOriginX(0.0), viewportOriginY(0.0), viewportExtentX(1.0), viewportExtentY(1.0), mappingMode(MM_ANISOTROPIC), selectedBrushHandle(0), selectedFontHandle(0), selectedPenHandle(0), selectedPaletteHandle(0), selectedRegionHandle(0), useDefaultBrush(true), useDefaultFont(true), useDefaultPen(true), useDefaultPalette(true), useDefaultRegion(true)
 {
 }
 
@@ -195,12 +195,147 @@ void DeviceContext::ScaleWindowExt(const MetaScalewindowextRecord &record)
     }
 }
 
+void DeviceContext::SelectObject(const MetaSelectobjectRecord &record)
+{
+    switch(this->graphicsObjects.getObjectByHandle(static_cast<GraphicsObjectHandle>(record.getObjectIndex()))->getType())
+    {
+    case BRUSH_GRAPHICS_OBJECT:
+        this->selectedBrushHandle = static_cast<GraphicsObjectHandle>(record.getObjectIndex());
+        this->useDefaultBrush = false;
+        break;
+    case FONT_GRAPHICS_OBJECT:
+        this->selectedFontHandle = static_cast<GraphicsObjectHandle>(record.getObjectIndex());
+        this->useDefaultFont = false;
+        break;
+    case PALETTE_GRAPHICS_OBJECT:
+        this->selectedPaletteHandle = static_cast<GraphicsObjectHandle>(record.getObjectIndex());
+        this->useDefaultPalette = false;
+        break;
+    case PEN_GRAPHICS_OBJECT:
+        this->selectedPenHandle = static_cast<GraphicsObjectHandle>(record.getObjectIndex());
+        this->useDefaultPen = false;
+        break;
+    case REGION_GRAPHICS_OBJECT:
+        this->selectedRegionHandle = static_cast<GraphicsObjectHandle>(record.getObjectIndex());
+        this->useDefaultRegion = false;
+        break;
+    default:
+        throw std::runtime_error("Empty graphics object");
+    }
+}
+
+void DeviceContext::DeleteObject(const MetaDeleteobjectRecord &record)
+{
+    GraphicsObjectType objectType = this->graphicsObjects.getObjectByHandle(static_cast<GraphicsObjectHandle>(record.getObjectIndex()))->getType();
+    this->graphicsObjects.removeObject(static_cast<GraphicsObjectHandle>(record.getObjectIndex()));
+    switch(objectType)
+    {
+    case BRUSH_GRAPHICS_OBJECT:
+        this->selectedBrushHandle = 0;
+        this->useDefaultBrush = true;
+        break;
+    case FONT_GRAPHICS_OBJECT:
+        this->selectedFontHandle = 0;
+        this->useDefaultFont = true;
+        break;
+    case PALETTE_GRAPHICS_OBJECT:
+        this->selectedPaletteHandle = 0;
+        this->useDefaultPalette = true;
+        break;
+    case PEN_GRAPHICS_OBJECT:
+        this->selectedPenHandle = 0;
+        this->useDefaultPen = true;
+        break;
+    case REGION_GRAPHICS_OBJECT:
+        this->selectedRegionHandle = 0;
+        this->useDefaultRegion = true;
+        break;
+    default:
+        throw std::runtime_error("Empty graphics object");
+    }
+}
+
 qreal DeviceContext::pageToDeviceX(qreal x) const
 {
-    return ((x - windowOriginX) * viewportExtentX / windowExtentX) + viewportOriginX;
+    return ((x - windowOriginX) * (viewportExtentX / windowExtentX)) + viewportOriginX;
 }
 
 qreal DeviceContext::pageToDeviceY(qreal y) const
 {
-    return ((y - windowOriginY) * viewportExtentY / windowExtentY) + viewportOriginY;
+    return ((y - windowOriginY) * (viewportExtentY / windowExtentY)) + viewportOriginY;
+}
+
+qreal DeviceContext::pageToDeviceRescaleX(qreal x) const
+{
+    return (x * (viewportExtentX / windowExtentX));
+}
+
+qreal DeviceContext::pageToDeviceRescaleY(qreal y) const
+{
+    return (y * (viewportExtentY / windowExtentY));
+}
+
+QBrush DeviceContext::getSelectedBrush() const
+{
+    if(this->useDefaultBrush)
+    {
+        return QBrush();
+    }
+    QSharedPointer<GraphicsObjectBrush> brush = this->graphicsObjects.getObjectByHandle(this->selectedBrushHandle).dynamicCast<GraphicsObjectBrush>();
+    if(brush->isPaletteRequired())
+    {
+        if(this->useDefaultPalette)
+        {
+            throw std::runtime_error("Brush requires palette");
+        }
+        return brush->getBrush(this->graphicsObjects.getObjectByHandle(this->selectedPaletteHandle).dynamicCast<GraphicsObjectPalette>()->getPalette());
+    }
+    else
+    {
+        return brush->getBrush();
+    }
+}
+
+QFont DeviceContext::getSelectedFont() const
+{
+    if(this->useDefaultFont)
+    {
+        return QFont();
+    }
+    QSharedPointer<GraphicsObjectFont> font = this->graphicsObjects.getObjectByHandle(this->selectedFontHandle).dynamicCast<GraphicsObjectFont>();
+    qreal pointsInUnit = viewportExtentY / windowExtentY;
+    return font->getFont(pointsInUnit);
+}
+
+QPen DeviceContext::getSelectedPen() const
+{
+    if(this->useDefaultPen)
+    {
+        return QPen();
+    }
+    QSharedPointer<GraphicsObjectPen> pen = this->graphicsObjects.getObjectByHandle(this->selectedPenHandle).dynamicCast<GraphicsObjectPen>();
+    qreal pixelInUnitHor = viewportExtentX / windowExtentX;
+    return pen->getPen(pixelInUnitHor);
+}
+
+PaletteObject DeviceContext::getSelectedPalette() const
+{
+    if(this->useDefaultPalette)
+    {
+        return PaletteObject();
+    }
+    QSharedPointer<GraphicsObjectPalette> palette = this->graphicsObjects.getObjectByHandle(this->selectedPaletteHandle).dynamicCast<GraphicsObjectPalette>();
+    return palette->getPalette();
+}
+
+QRegion DeviceContext::getSelectedRegion() const
+{
+    if(this->useDefaultRegion)
+    {
+        return QRegion();
+    }
+    QSharedPointer<GraphicsObjectRegion> region = this->graphicsObjects.getObjectByHandle(this->selectedRegionHandle).dynamicCast<GraphicsObjectRegion>();
+    qreal pixelInUnitHor = viewportExtentX / windowExtentX;
+    qreal pixelInUnitVert = viewportExtentY / windowExtentY;
+    return region->getRegion(pixelInUnitHor, pixelInUnitVert);
 }

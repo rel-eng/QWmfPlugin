@@ -54,7 +54,7 @@ void ObjectTable::removeObject(GraphicsObjectHandle handle)
     this->freeHandles.insert(handle);
 }
 
-QSharedPointer<GraphicsObject> ObjectTable::getObjectByHandle(GraphicsObjectHandle handle)
+QSharedPointer<GraphicsObject> ObjectTable::getObjectByHandle(GraphicsObjectHandle handle) const
 {
     if(!this->objects.contains(handle))
     {

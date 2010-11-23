@@ -43,7 +43,7 @@ public:
     virtual ~ObjectTable();
     GraphicsObjectHandle insertObject(QSharedPointer<GraphicsObject> object);
     void removeObject(GraphicsObjectHandle handle);
-    QSharedPointer<GraphicsObject> getObjectByHandle(GraphicsObjectHandle handle);
+    QSharedPointer<GraphicsObject> getObjectByHandle(GraphicsObjectHandle handle) const;
 };
 
 #endif // OBJECTTABLE_H

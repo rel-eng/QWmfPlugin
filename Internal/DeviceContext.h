@@ -40,6 +40,8 @@
 #include "MetaOffsetwindoworgRecord.h"
 #include "MetaScaleviewportextRecord.h"
 #include "MetaScalewindowextRecord.h"
+#include "MetaSelectobjectRecord.h"
+#include "MetaDeleteobjectRecord.h"
 
 class DeviceContext
 {
@@ -55,6 +57,16 @@ private:
     qreal viewportExtentX;
     qreal viewportExtentY;
     quint16 mappingMode;
+    GraphicsObjectHandle selectedBrushHandle;
+    GraphicsObjectHandle selectedFontHandle;
+    GraphicsObjectHandle selectedPenHandle;
+    GraphicsObjectHandle selectedPaletteHandle;
+    GraphicsObjectHandle selectedRegionHandle;
+    bool useDefaultBrush;
+    bool useDefaultFont;
+    bool useDefaultPen;
+    bool useDefaultPalette;
+    bool useDefaultRegion;
 public:
     DeviceContext(size_t numberOfObjects);
     virtual ~DeviceContext();
@@ -73,8 +85,17 @@ public:
     void OffsetWindowOrg(const MetaOffsetwindoworgRecord &record);
     void ScaleViewportExt(const MetaScaleviewportextRecord &record);
     void ScaleWindowExt(const MetaScalewindowextRecord &record);
+    void SelectObject(const MetaSelectobjectRecord &record);
+    void DeleteObject(const MetaDeleteobjectRecord &record);
     qreal pageToDeviceX(qreal x) const;
     qreal pageToDeviceY(qreal y) const;
+    qreal pageToDeviceRescaleX(qreal x) const;
+    qreal pageToDeviceRescaleY(qreal y) const;
+    QBrush getSelectedBrush() const;
+    QFont getSelectedFont() const;
+    QPen getSelectedPen() const;
+    PaletteObject getSelectedPalette() const;
+    QRegion getSelectedRegion() const;
 };
 
 #endif // DEVICECONTEXT_H
