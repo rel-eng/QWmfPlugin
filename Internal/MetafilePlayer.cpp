@@ -118,6 +118,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_SETBKMODE & 0x00FF):
             break;
         case (META_SETMAPMODE & 0x00FF):
+            deviceContext.SetMapMode(currentRecord.dynamicCast<MetaSetmapmodeRecord>().operator *());
             break;
         case (META_SETROP2 & 0x00FF):
             break;
@@ -142,6 +143,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_SETTEXTCOLOR & 0x00FF):
             break;
         case (META_OFFSETVIEWPORTORG & 0x00FF):
+            deviceContext.OffsetViewportOrg(currentRecord.dynamicCast<MetaOffsetviewportorgRecord>().operator *());
             break;
         case (META_LINETO & 0x00FF):
             break;
@@ -162,18 +164,25 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_SETTEXTJUSTIFICATION & 0x00FF):
             break;
         case (META_SETWINDOWORG & 0x00FF):
+            deviceContext.SetWindowOrg(currentRecord.dynamicCast<MetaSetwindoworgRecord>().operator *());
             break;
         case (META_SETWINDOWEXT & 0x00FF):
+            deviceContext.SetWindowExt(currentRecord.dynamicCast<MetaSetwindowextRecord>().operator *());
             break;
         case (META_SETVIEWPORTORG & 0x00FF):
+            deviceContext.SetViewportOrg(currentRecord.dynamicCast<MetaSetviewportorgRecord>().operator *());
             break;
         case (META_SETVIEWPORTEXT & 0x00FF):
+            deviceContext.SetViewportExt(currentRecord.dynamicCast<MetaSetviewportextRecord>().operator *());
             break;
         case (META_OFFSETWINDOWORG & 0x00FF):
+            deviceContext.OffsetWindowOrg(currentRecord.dynamicCast<MetaOffsetwindoworgRecord>().operator *());
             break;
         case (META_SCALEWINDOWEXT & 0x00FF):
+            deviceContext.ScaleWindowExt(currentRecord.dynamicCast<MetaScalewindowextRecord>().operator *());
             break;
         case (META_SCALEVIEWPORTEXT & 0x00FF):
+            deviceContext.ScaleViewportExt(currentRecord.dynamicCast<MetaScaleviewportextRecord>().operator *());
             break;
         case (META_EXCLUDECLIPRECT & 0x00FF):
             break;

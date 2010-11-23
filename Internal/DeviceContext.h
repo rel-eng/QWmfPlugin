@@ -31,12 +31,30 @@
 #include "MetaCreatepenindirectRecord.h"
 #include "MetaCreatepaletteRecord.h"
 #include "MetaCreateregionRecord.h"
+#include "MetaSetviewportorgRecord.h"
+#include "MetaSetviewportextRecord.h"
+#include "MetaSetwindoworgRecord.h"
+#include "MetaSetwindowextRecord.h"
+#include "MetaSetmapmodeRecord.h"
+#include "MetaOffsetviewportorgRecord.h"
+#include "MetaOffsetwindoworgRecord.h"
+#include "MetaScaleviewportextRecord.h"
+#include "MetaScalewindowextRecord.h"
 
 class DeviceContext
 {
 private:
     Q_DISABLE_COPY(DeviceContext)
     ObjectTable graphicsObjects;
+    qreal windowOriginX;
+    qreal windowOriginY;
+    qreal windowExtentX;
+    qreal windowExtentY;
+    qreal viewportOriginX;
+    qreal viewportOriginY;
+    qreal viewportExtentX;
+    qreal viewportExtentY;
+    quint16 mappingMode;
 public:
     DeviceContext(size_t numberOfObjects);
     virtual ~DeviceContext();
@@ -46,6 +64,17 @@ public:
     void CreatePenIndirect(const MetaCreatepenindirectRecord &record);
     void CreatePalette(const MetaCreatepaletteRecord &record);
     void CreateRegion(const MetaCreateregionRecord &record);
+    void SetViewportOrg(const MetaSetviewportorgRecord &record);
+    void SetViewportExt(const MetaSetviewportextRecord &record);
+    void SetWindowOrg(const MetaSetwindoworgRecord &record);
+    void SetWindowExt(const MetaSetwindowextRecord &record);
+    void SetMapMode(const MetaSetmapmodeRecord &record);
+    void OffsetViewportOrg(const MetaOffsetviewportorgRecord &record);
+    void OffsetWindowOrg(const MetaOffsetwindoworgRecord &record);
+    void ScaleViewportExt(const MetaScaleviewportextRecord &record);
+    void ScaleWindowExt(const MetaScalewindowextRecord &record);
+    qreal pageToDeviceX(qreal x) const;
+    qreal pageToDeviceY(qreal y) const;
 };
 
 #endif // DEVICECONTEXT_H
