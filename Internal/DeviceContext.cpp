@@ -269,14 +269,21 @@ void DeviceContext::Rectangle(const MetaRectangleRecord &record, QPainter &paint
 {
     painter.setPen(this->getSelectedPen());
     painter.setBrush(this->getSelectedBrush());
-    painter.drawRect(QRectF(QPointF(this->pageToDeviceX(record.getRect().left()), this->pageToDeviceY(record.getRect().top())), QPointF(this->pageToDeviceX(record.getRect().right()), this->pageToDeviceY(record.getRect().bottom()))));
+    painter.drawRect(QRectF(QPointF(this->pageToDeviceX(static_cast<qreal>(record.getRect().left())), this->pageToDeviceY(static_cast<qreal>(record.getRect().top()))), QPointF(this->pageToDeviceX(static_cast<qreal>(record.getRect().right())), this->pageToDeviceY(static_cast<qreal>(record.getRect().bottom())))));
 }
 
 void DeviceContext::Ellipse(const MetaEllipseRecord &record, QPainter &painter)
 {
     painter.setPen(this->getSelectedPen());
     painter.setBrush(this->getSelectedBrush());
-    painter.drawEllipse(QRectF(QPointF(this->pageToDeviceX(record.getRect().left()), this->pageToDeviceY(record.getRect().top())), QPointF(this->pageToDeviceX(record.getRect().right()), this->pageToDeviceY(record.getRect().bottom()))));
+    painter.drawEllipse(QRectF(QPointF(this->pageToDeviceX(static_cast<qreal>(record.getRect().left())), this->pageToDeviceY(static_cast<qreal>(record.getRect().top()))), QPointF(this->pageToDeviceX(static_cast<qreal>(record.getRect().right())), this->pageToDeviceY(static_cast<qreal>(record.getRect().bottom())))));
+}
+
+void DeviceContext::RoundRect(const MetaRoundrectRecord &record, QPainter &painter)
+{
+    painter.setPen(this->getSelectedPen());
+    painter.setBrush(this->getSelectedBrush());
+    painter.drawRoundedRect(QRectF(QPointF(this->pageToDeviceX(static_cast<qreal>(record.getRect().left())), this->pageToDeviceY(static_cast<qreal>(record.getRect().top()))), QPointF(this->pageToDeviceX(static_cast<qreal>(record.getRect().right())), this->pageToDeviceY(static_cast<qreal>(record.getRect().bottom())))), this->pageToDeviceRescaleX(static_cast<qreal>(record.getWidth())), this->pageToDeviceRescaleY(static_cast<qreal>(record.getHeight())), Qt::AbsoluteSize);
 }
 
 qreal DeviceContext::pageToDeviceX(qreal x) const
