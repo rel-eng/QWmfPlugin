@@ -52,6 +52,7 @@
 #include "MetaSetbkcolorRecord.h"
 #include "MetaSetbkmodeRecord.h"
 #include "MetaRectangleRecord.h"
+#include "MetaEllipseRecord.h"
 #include "GraphicsObject.h"
 #include "GraphicsObjectBrush.h"
 #include "GraphicsObjectFont.h"
@@ -111,6 +112,7 @@ public:
     void SetBkColor(const MetaSetbkcolorRecord &record, QPainter &painter);
     void SetBkMode(const MetaSetbkmodeRecord &record, QPainter &painter);
     void Rectangle(const MetaRectangleRecord &record, QPainter &painter);
+    void Ellipse(const MetaEllipseRecord &record, QPainter &painter);
     qreal pageToDeviceX(qreal x) const;
     qreal pageToDeviceY(qreal y) const;
     qreal pageToDeviceRescaleX(qreal x) const;

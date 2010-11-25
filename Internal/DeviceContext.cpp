@@ -272,6 +272,13 @@ void DeviceContext::Rectangle(const MetaRectangleRecord &record, QPainter &paint
     painter.drawRect(QRectF(QPointF(this->pageToDeviceX(record.getRect().left()), this->pageToDeviceY(record.getRect().top())), QPointF(this->pageToDeviceX(record.getRect().right()), this->pageToDeviceY(record.getRect().bottom()))));
 }
 
+void DeviceContext::Ellipse(const MetaEllipseRecord &record, QPainter &painter)
+{
+    painter.setPen(this->getSelectedPen());
+    painter.setBrush(this->getSelectedBrush());
+    painter.drawEllipse(QRectF(QPointF(this->pageToDeviceX(record.getRect().left()), this->pageToDeviceY(record.getRect().top())), QPointF(this->pageToDeviceX(record.getRect().right()), this->pageToDeviceY(record.getRect().bottom()))));
+}
+
 qreal DeviceContext::pageToDeviceX(qreal x) const
 {
     return ((x - windowOriginX) * (viewportExtentX / windowExtentX)) + viewportOriginX;

@@ -60,7 +60,12 @@ QPen GraphicsObjectPen::getPen(qreal pixelInUnitHor) const
         throw std::runtime_error("Invalid pen graphics object");
     }
     QPen result;
-    result.setWidthF(pixelInUnitHor * static_cast<qreal>(this->record.getPen().getWidth()));
+    qreal penWidth = pixelInUnitHor * static_cast<qreal>(this->record.getPen().getWidth());
+    if(penWidth < 1.0)
+    {
+        penWidth = 1.0;
+    }
+    result.setWidthF(penWidth);
     result.setColor(QColor(this->record.getPen().getColor()));
     quint16 style = this->record.getPen().getPenStyle();
     if((style & 0x00FF) == PS_COSMETIC)

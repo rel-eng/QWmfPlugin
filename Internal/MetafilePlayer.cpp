@@ -196,6 +196,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_INTERSECTCLIPRECT & 0x00FF):
             break;
         case (META_ELLIPSE & 0x00FF):
+            deviceContext.Ellipse(currentRecord.dynamicCast<MetaEllipseRecord>().operator *(), painter);
             break;
         case (META_FLOODFILL & 0x00FF):
             break;
