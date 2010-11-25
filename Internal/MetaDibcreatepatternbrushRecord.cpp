@@ -45,8 +45,8 @@ MetaDibcreatepatternbrushRecord::MetaDibcreatepatternbrushRecord(QIODevice &devi
     this->colorUsage = readUnsignedWord(device);
     if(this->style == BS_PATTERN)
     {
-        this->bitmap = Bitmap16Object(device);
-        this->isDib = false;
+        this->dib = DeviceIndependentBitmapObject(device, this->colorUsage, static_cast<qint64>(this->getRecordSizeInWords() - 5)*Q_INT64_C(2));
+        this->isDib = true;
     }
     else
     {
@@ -108,5 +108,17 @@ QImage MetaDibcreatepatternbrushRecord::getImage(const PaletteObject &palette) c
     else
     {
         return this->bitmap.getImage(palette);
+    }
+}
+
+bool MetaDibcreatepatternbrushRecord::isPaletteRequired() const
+{
+    if(this->isDib)
+    {
+        return this->dib.isPaletteRequired();
+    }
+    else
+    {
+        return this->bitmap.isPaletteRequired();
     }
 }

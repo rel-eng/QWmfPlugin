@@ -51,7 +51,7 @@ Bitmap16Object::Bitmap16Object(QIODevice &device) : imageBits()
     this->planes = readUnsignedByte(device);
     if(this->planes != 1)
     {
-        throw std::runtime_error("Invalid imageBitsLength value");
+        throw std::runtime_error("Invalid planes value");
     }
     this->bitsPerPixel = readUnsignedByte(device);
     quint16 wb = (this->width * static_cast<quint16>(this->bitsPerPixel) + 15)/16;
@@ -234,4 +234,16 @@ quint32 Bitmap16Object::getSizeInWords() const
         sizeInWords++;
     }
     return sizeInWords;
+}
+
+bool Bitmap16Object::isPaletteRequired() const
+{
+    if(this->bitsPerPixel == 24)
+    {
+        return false;
+    }
+    else
+    {
+        return true;
+    }
 }

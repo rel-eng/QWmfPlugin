@@ -103,7 +103,8 @@ MetafilePlayer::~MetafilePlayer()
 
 void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, const MetaHeaderRecord &headerRecord, const ConcurrentRecordLoader &recordLoader, QImage &outputImage)
 {
-    DeviceContext deviceContext(static_cast<size_t>(headerRecord.getNumberOfObjects()));
+    DeviceContext deviceContext(static_cast<size_t>(headerRecord.getNumberOfObjects()), placeableRecord);
+    QPainter painter(&outputImage);
     for(int recordIndex = 0; recordIndex < recordLoader.getRecordsCount(); recordIndex++)
     {
         QSharedPointer<MetafileRecord> currentRecord = recordLoader.getRecord(recordIndex);
@@ -135,6 +136,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_RESIZEPALETTE & 0x00FF):
             break;
         case (META_DIBCREATEPATTERNBRUSH & 0x00FF):
+            deviceContext.DibCreatePatternBrush(currentRecord.dynamicCast<MetaDibcreatepatternbrushRecord>().operator *());
             break;
         case (META_SETLAYOUT & 0x00FF):
             break;
@@ -146,8 +148,10 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
             deviceContext.OffsetViewportOrg(currentRecord.dynamicCast<MetaOffsetviewportorgRecord>().operator *());
             break;
         case (META_LINETO & 0x00FF):
+            deviceContext.LineTo(currentRecord.dynamicCast<MetaLinetoRecord>().operator *(), painter);
             break;
         case (META_MOVETO & 0x00FF):
+            deviceContext.MoveTo(currentRecord.dynamicCast<MetaMovetoRecord>().operator *());
             break;
         case (META_OFFSETCLIPRGN & 0x00FF):
             break;

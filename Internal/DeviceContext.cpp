@@ -19,16 +19,7 @@
 
 #include "DeviceContext.h"
 
-#include <QSharedPointer>
-
-#include "GraphicsObject.h"
-#include "GraphicsObjectBrush.h"
-#include "GraphicsObjectFont.h"
-#include "GraphicsObjectPen.h"
-#include "GraphicsObjectPalette.h"
-#include "GraphicsObjectRegion.h"
-
-DeviceContext::DeviceContext(size_t numberOfObjects) : graphicsObjects(numberOfObjects), windowOriginX(0.0), windowOriginY(0.0), windowExtentX(1.0), windowExtentY(1.0), viewportOriginX(0.0), viewportOriginY(0.0), viewportExtentX(1.0), viewportExtentY(1.0), mappingMode(MM_ANISOTROPIC), selectedBrushHandle(0), selectedFontHandle(0), selectedPenHandle(0), selectedPaletteHandle(0), selectedRegionHandle(0), useDefaultBrush(true), useDefaultFont(true), useDefaultPen(true), useDefaultPalette(true), useDefaultRegion(true)
+DeviceContext::DeviceContext(size_t numberOfObjects, const MetaPlaceableRecord &placeableHeader) : graphicsObjects(numberOfObjects), placeableHeader(placeableHeader), windowOriginX(0.0), windowOriginY(0.0), windowExtentX(1.0), windowExtentY(1.0), viewportOriginX(0.0), viewportOriginY(0.0), viewportExtentX(1.0), viewportExtentY(1.0), mappingMode(MM_ANISOTROPIC), selectedBrush(), selectedFont(), selectedPen(), selectedPalette(), selectedRegion(), useDefaultBrush(true), useDefaultFont(true), useDefaultPen(true), useDefaultPalette(true), useDefaultRegion(true), currentPoint(0.0, 0.0)
 {
 }
 
@@ -42,6 +33,11 @@ void DeviceContext::CreateBrushIndirect(const MetaCreatebrushindirectRecord &rec
 }
 
 void DeviceContext::CreatePatternBrush(const MetaCreatepatternbrushRecord &record)
+{
+    this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObject *>(new GraphicsObjectBrush(record))));
+}
+
+void DeviceContext::DibCreatePatternBrush(const MetaDibcreatepatternbrushRecord &record)
 {
     this->graphicsObjects.insertObject(QSharedPointer<GraphicsObject>(dynamic_cast<GraphicsObject *>(new GraphicsObjectBrush(record))));
 }
@@ -98,6 +94,11 @@ void DeviceContext::SetWindowExt(const MetaSetwindowextRecord &record)
 
 void DeviceContext::SetMapMode(const MetaSetmapmodeRecord &record)
 {
+    qreal widthLU = static_cast<qreal>(qAbs(placeableHeader.getRight() - placeableHeader.getLeft()));
+    qreal heightLU = static_cast<qreal>(qAbs(placeableHeader.getBottom() - placeableHeader.getTop()));
+    qreal tpi = qAbs(static_cast<qreal>(placeableHeader.getTpi()));
+    int outWidth = qRound((widthLU / tpi) * static_cast<qreal>(72.0));
+    int outHeight = qRound((heightLU / tpi) * static_cast<qreal>(72.0));
     this->mappingMode = record.getMapMode();
     switch(record.getMapMode())
     {
@@ -145,15 +146,15 @@ void DeviceContext::SetMapMode(const MetaSetmapmodeRecord &record)
         break;
     //Произвольные, но равные друг другу масштабные коэффициенты для осей абсцисс и ординат, задаются посредством команд META_SETWINDOWEXT и META_SETVIEWPORTEXT, необходимо обеспечивать равенство масштабных коэффициентов при любых преобразованиях
     case MM_ISOTROPIC:
-        this->viewportExtentX = 1.0;
-        this->viewportExtentY = 1.0;
+        this->viewportExtentX = static_cast<qreal>(outWidth);
+        this->viewportExtentY = static_cast<qreal>(outHeight);
         this->windowExtentX = 1.0;
         this->windowExtentY = -1.0;
         break;
     //Произвольные масштабные коэффициенты для осей абсцисс и ординат
     case MM_ANISOTROPIC:
-        this->viewportExtentX = 1.0;
-        this->viewportExtentY = 1.0;
+        this->viewportExtentX = static_cast<qreal>(outWidth);
+        this->viewportExtentY = static_cast<qreal>(outHeight);
         this->windowExtentX = 1.0;
         this->windowExtentY = -1.0;
         break;
@@ -200,23 +201,23 @@ void DeviceContext::SelectObject(const MetaSelectobjectRecord &record)
     switch(this->graphicsObjects.getObjectByHandle(static_cast<GraphicsObjectHandle>(record.getObjectIndex()))->getType())
     {
     case BRUSH_GRAPHICS_OBJECT:
-        this->selectedBrushHandle = static_cast<GraphicsObjectHandle>(record.getObjectIndex());
+        this->selectedBrush = this->graphicsObjects.getObjectByHandle(static_cast<GraphicsObjectHandle>(record.getObjectIndex())).dynamicCast<GraphicsObjectBrush>();
         this->useDefaultBrush = false;
         break;
     case FONT_GRAPHICS_OBJECT:
-        this->selectedFontHandle = static_cast<GraphicsObjectHandle>(record.getObjectIndex());
+        this->selectedFont = this->graphicsObjects.getObjectByHandle(static_cast<GraphicsObjectHandle>(record.getObjectIndex())).dynamicCast<GraphicsObjectFont>();
         this->useDefaultFont = false;
         break;
     case PALETTE_GRAPHICS_OBJECT:
-        this->selectedPaletteHandle = static_cast<GraphicsObjectHandle>(record.getObjectIndex());
+        this->selectedPalette = this->graphicsObjects.getObjectByHandle(static_cast<GraphicsObjectHandle>(record.getObjectIndex())).dynamicCast<GraphicsObjectPalette>();
         this->useDefaultPalette = false;
         break;
     case PEN_GRAPHICS_OBJECT:
-        this->selectedPenHandle = static_cast<GraphicsObjectHandle>(record.getObjectIndex());
+        this->selectedPen = this->graphicsObjects.getObjectByHandle(static_cast<GraphicsObjectHandle>(record.getObjectIndex())).dynamicCast<GraphicsObjectPen>();
         this->useDefaultPen = false;
         break;
     case REGION_GRAPHICS_OBJECT:
-        this->selectedRegionHandle = static_cast<GraphicsObjectHandle>(record.getObjectIndex());
+        this->selectedRegion = this->graphicsObjects.getObjectByHandle(static_cast<GraphicsObjectHandle>(record.getObjectIndex())).dynamicCast<GraphicsObjectRegion>();
         this->useDefaultRegion = false;
         break;
     default:
@@ -228,31 +229,20 @@ void DeviceContext::DeleteObject(const MetaDeleteobjectRecord &record)
 {
     GraphicsObjectType objectType = this->graphicsObjects.getObjectByHandle(static_cast<GraphicsObjectHandle>(record.getObjectIndex()))->getType();
     this->graphicsObjects.removeObject(static_cast<GraphicsObjectHandle>(record.getObjectIndex()));
-    switch(objectType)
-    {
-    case BRUSH_GRAPHICS_OBJECT:
-        this->selectedBrushHandle = 0;
-        this->useDefaultBrush = true;
-        break;
-    case FONT_GRAPHICS_OBJECT:
-        this->selectedFontHandle = 0;
-        this->useDefaultFont = true;
-        break;
-    case PALETTE_GRAPHICS_OBJECT:
-        this->selectedPaletteHandle = 0;
-        this->useDefaultPalette = true;
-        break;
-    case PEN_GRAPHICS_OBJECT:
-        this->selectedPenHandle = 0;
-        this->useDefaultPen = true;
-        break;
-    case REGION_GRAPHICS_OBJECT:
-        this->selectedRegionHandle = 0;
-        this->useDefaultRegion = true;
-        break;
-    default:
-        throw std::runtime_error("Empty graphics object");
-    }
+}
+
+void DeviceContext::MoveTo(const MetaMovetoRecord &record)
+{
+    this->currentPoint.setX(this->pageToDeviceX(static_cast<qreal>(record.getPoint().x())));
+    this->currentPoint.setY(this->pageToDeviceY(static_cast<qreal>(record.getPoint().y())));
+}
+
+void DeviceContext::LineTo(const MetaLinetoRecord &record, QPainter &painter)
+{
+    painter.setPen(this->getSelectedPen());
+    qreal lineToX = this->pageToDeviceX(static_cast<qreal>(record.getPoint().x()));
+    qreal lineToY = this->pageToDeviceY(static_cast<qreal>(record.getPoint().y()));
+    painter.drawLine(this->currentPoint, QPointF(lineToX, lineToY));
 }
 
 qreal DeviceContext::pageToDeviceX(qreal x) const
@@ -281,18 +271,17 @@ QBrush DeviceContext::getSelectedBrush() const
     {
         return QBrush();
     }
-    QSharedPointer<GraphicsObjectBrush> brush = this->graphicsObjects.getObjectByHandle(this->selectedBrushHandle).dynamicCast<GraphicsObjectBrush>();
-    if(brush->isPaletteRequired())
+    if(this->selectedBrush->isPaletteRequired())
     {
         if(this->useDefaultPalette)
         {
             throw std::runtime_error("Brush requires palette");
         }
-        return brush->getBrush(this->graphicsObjects.getObjectByHandle(this->selectedPaletteHandle).dynamicCast<GraphicsObjectPalette>()->getPalette());
+        return this->selectedBrush->getBrush(this->selectedPalette->getPalette());
     }
     else
     {
-        return brush->getBrush();
+        return this->selectedBrush->getBrush();
     }
 }
 
@@ -302,9 +291,8 @@ QFont DeviceContext::getSelectedFont() const
     {
         return QFont();
     }
-    QSharedPointer<GraphicsObjectFont> font = this->graphicsObjects.getObjectByHandle(this->selectedFontHandle).dynamicCast<GraphicsObjectFont>();
     qreal pointsInUnit = viewportExtentY / windowExtentY;
-    return font->getFont(pointsInUnit);
+    return this->selectedFont->getFont(pointsInUnit);
 }
 
 QPen DeviceContext::getSelectedPen() const
@@ -313,9 +301,8 @@ QPen DeviceContext::getSelectedPen() const
     {
         return QPen();
     }
-    QSharedPointer<GraphicsObjectPen> pen = this->graphicsObjects.getObjectByHandle(this->selectedPenHandle).dynamicCast<GraphicsObjectPen>();
     qreal pixelInUnitHor = viewportExtentX / windowExtentX;
-    return pen->getPen(pixelInUnitHor);
+    return this->selectedPen->getPen(pixelInUnitHor);
 }
 
 PaletteObject DeviceContext::getSelectedPalette() const
@@ -324,8 +311,7 @@ PaletteObject DeviceContext::getSelectedPalette() const
     {
         return PaletteObject();
     }
-    QSharedPointer<GraphicsObjectPalette> palette = this->graphicsObjects.getObjectByHandle(this->selectedPaletteHandle).dynamicCast<GraphicsObjectPalette>();
-    return palette->getPalette();
+    return this->selectedPalette->getPalette();
 }
 
 QRegion DeviceContext::getSelectedRegion() const
@@ -334,8 +320,7 @@ QRegion DeviceContext::getSelectedRegion() const
     {
         return QRegion();
     }
-    QSharedPointer<GraphicsObjectRegion> region = this->graphicsObjects.getObjectByHandle(this->selectedRegionHandle).dynamicCast<GraphicsObjectRegion>();
     qreal pixelInUnitHor = viewportExtentX / windowExtentX;
     qreal pixelInUnitVert = viewportExtentY / windowExtentY;
-    return region->getRegion(pixelInUnitHor, pixelInUnitVert);
+    return this->selectedRegion->getRegion(pixelInUnitHor, pixelInUnitVert);
 }

@@ -21,19 +21,23 @@
 
 #include <stdexcept>
 
-GraphicsObjectBrush::GraphicsObjectBrush() : GraphicsObject(BRUSH_GRAPHICS_OBJECT), brushType(EMPTY_BRUSH), indirectBrush(), patternBrush()
+GraphicsObjectBrush::GraphicsObjectBrush() : GraphicsObject(BRUSH_GRAPHICS_OBJECT), brushType(EMPTY_BRUSH), indirectBrush(), patternBrush(), dibPatternBrush()
 {
 }
 
-GraphicsObjectBrush::GraphicsObjectBrush(const MetaCreatebrushindirectRecord &record) : GraphicsObject(BRUSH_GRAPHICS_OBJECT), brushType(INDIRECT_BRUSH), indirectBrush(record), patternBrush()
+GraphicsObjectBrush::GraphicsObjectBrush(const MetaCreatebrushindirectRecord &record) : GraphicsObject(BRUSH_GRAPHICS_OBJECT), brushType(INDIRECT_BRUSH), indirectBrush(record), patternBrush(), dibPatternBrush()
 {
 }
 
-GraphicsObjectBrush::GraphicsObjectBrush(const MetaCreatepatternbrushRecord &record) : GraphicsObject(BRUSH_GRAPHICS_OBJECT), brushType(PATTERN_BRUSH), indirectBrush(), patternBrush(record)
+GraphicsObjectBrush::GraphicsObjectBrush(const MetaCreatepatternbrushRecord &record) : GraphicsObject(BRUSH_GRAPHICS_OBJECT), brushType(PATTERN_BRUSH), indirectBrush(), patternBrush(record), dibPatternBrush()
 {
 }
 
-GraphicsObjectBrush::GraphicsObjectBrush(const GraphicsObjectBrush &rhs) : GraphicsObject(rhs), brushType(rhs.brushType), indirectBrush(rhs.indirectBrush), patternBrush(rhs.patternBrush)
+GraphicsObjectBrush::GraphicsObjectBrush(const MetaDibcreatepatternbrushRecord &record) : GraphicsObject(BRUSH_GRAPHICS_OBJECT), brushType(DIB_PATTERN_BRUSH), indirectBrush(), patternBrush(), dibPatternBrush(record)
+{
+}
+
+GraphicsObjectBrush::GraphicsObjectBrush(const GraphicsObjectBrush &rhs) : GraphicsObject(rhs), brushType(rhs.brushType), indirectBrush(rhs.indirectBrush), patternBrush(rhs.patternBrush), dibPatternBrush(rhs.dibPatternBrush)
 {
 }
 
@@ -49,6 +53,7 @@ GraphicsObjectBrush & GraphicsObjectBrush::operator=(const GraphicsObjectBrush &
         this->brushType = rhs.brushType;
         this->indirectBrush = rhs.indirectBrush;
         this->patternBrush = rhs.patternBrush;
+        this->dibPatternBrush = rhs.dibPatternBrush;
     }
     return *this;
 }
@@ -67,7 +72,14 @@ bool GraphicsObjectBrush::isPaletteRequired() const
         }
         else
         {
-            throw std::runtime_error("Brush is empty");
+            if(this->brushType == DIB_PATTERN_BRUSH)
+            {
+                this->dibPatternBrush.isPaletteRequired();
+            }
+            else
+            {
+                throw std::runtime_error("Brush is empty");
+            }
         }
     }
 }
@@ -148,7 +160,20 @@ QBrush GraphicsObjectBrush::getBrush() const
         }
         else
         {
-            throw std::runtime_error("Brush is empty");
+            if(this->brushType == DIB_PATTERN_BRUSH)
+            {
+                if(this->dibPatternBrush.isPaletteRequired())
+                {
+                    throw std::runtime_error("Brush requires palette");
+                }
+                QBrush result(Qt::TexturePattern);
+                result.setTextureImage(this->dibPatternBrush.getImage());
+                return result;
+            }
+            else
+            {
+                throw std::runtime_error("Brush is empty");
+            }
         }
     }
 }
@@ -158,10 +183,6 @@ QBrush GraphicsObjectBrush::getBrush(const PaletteObject &palette) const
     if(this->brushType == PATTERN_BRUSH)
     {
         QBrush result(Qt::TexturePattern);
-        if(this->patternBrush.isPaletteRequired())
-        {
-            throw std::runtime_error("Brush requires palette");
-        }
         result.setTextureImage(this->patternBrush.getPattern(palette));
         return result;
     }
@@ -229,7 +250,16 @@ QBrush GraphicsObjectBrush::getBrush(const PaletteObject &palette) const
         }
         else
         {
-            throw std::runtime_error("Brush is empty");
+            if(this->brushType == DIB_PATTERN_BRUSH)
+            {
+                QBrush result(Qt::TexturePattern);
+                result.setTextureImage(this->dibPatternBrush.getImage(palette));
+                return result;
+            }
+            else
+            {
+                throw std::runtime_error("Brush is empty");
+            }
         }
     }
 }

@@ -68,7 +68,7 @@ bool QWmfHandler::read(QImage *image)
     int width = qRound((widthLU / tpi) * static_cast<qreal>(72.0));
     int height = qRound((heightLU / tpi) * static_cast<qreal>(72.0));
     QImage result(width, height, QImage::Format_ARGB32);
-    result.fill(0);
+    result.fill(0x00FFFFFF);
     result.setDotsPerMeterX(2835);
     result.setDotsPerMeterY(2835);
     bool invalidRecordsData = false;

@@ -68,6 +68,7 @@ public:
     QImage getImage() const;
     QImage getImage(const PaletteObject &palette) const;
     quint32 getSizeInWords() const;
+    bool isPaletteRequired() const;
 };
 
 #endif // BITMAP16OBJECT_H

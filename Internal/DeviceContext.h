@@ -21,12 +21,17 @@
 #define DEVICECONTEXT_H
 
 #include <QtGlobal>
+#include <QPointF>
+#include <QPainter>
+#include <QSharedPointer>
 
 #include <cstddef>
 
 #include "ObjectTable.h"
+#include "MetaPlaceableRecord.h"
 #include "MetaCreatebrushindirectRecord.h"
 #include "MetaCreatepatternbrushRecord.h"
+#include "MetaDibcreatepatternbrushRecord.h"
 #include "MetaCreatefontindirectRecord.h"
 #include "MetaCreatepenindirectRecord.h"
 #include "MetaCreatepaletteRecord.h"
@@ -42,12 +47,21 @@
 #include "MetaScalewindowextRecord.h"
 #include "MetaSelectobjectRecord.h"
 #include "MetaDeleteobjectRecord.h"
+#include "MetaMovetoRecord.h"
+#include "MetaLinetoRecord.h"
+#include "GraphicsObject.h"
+#include "GraphicsObjectBrush.h"
+#include "GraphicsObjectFont.h"
+#include "GraphicsObjectPalette.h"
+#include "GraphicsObjectPen.h"
+#include "GraphicsObjectRegion.h"
 
 class DeviceContext
 {
 private:
     Q_DISABLE_COPY(DeviceContext)
     ObjectTable graphicsObjects;
+    MetaPlaceableRecord placeableHeader;
     qreal windowOriginX;
     qreal windowOriginY;
     qreal windowExtentX;
@@ -57,21 +71,23 @@ private:
     qreal viewportExtentX;
     qreal viewportExtentY;
     quint16 mappingMode;
-    GraphicsObjectHandle selectedBrushHandle;
-    GraphicsObjectHandle selectedFontHandle;
-    GraphicsObjectHandle selectedPenHandle;
-    GraphicsObjectHandle selectedPaletteHandle;
-    GraphicsObjectHandle selectedRegionHandle;
+    QSharedPointer<GraphicsObjectBrush> selectedBrush;
+    QSharedPointer<GraphicsObjectFont> selectedFont;
+    QSharedPointer<GraphicsObjectPen> selectedPen;
+    QSharedPointer<GraphicsObjectPalette> selectedPalette;
+    QSharedPointer<GraphicsObjectRegion> selectedRegion;
     bool useDefaultBrush;
     bool useDefaultFont;
     bool useDefaultPen;
     bool useDefaultPalette;
     bool useDefaultRegion;
+    QPointF currentPoint;
 public:
-    DeviceContext(size_t numberOfObjects);
+    DeviceContext(size_t numberOfObjects, const MetaPlaceableRecord &placeableHeader);
     virtual ~DeviceContext();
     void CreateBrushIndirect(const MetaCreatebrushindirectRecord &record);
     void CreatePatternBrush(const MetaCreatepatternbrushRecord &record);
+    void DibCreatePatternBrush(const MetaDibcreatepatternbrushRecord &record);
     void CreateFontIndirect(const MetaCreatefontindirectRecord &record);
     void CreatePenIndirect(const MetaCreatepenindirectRecord &record);
     void CreatePalette(const MetaCreatepaletteRecord &record);
@@ -87,6 +103,8 @@ public:
     void ScaleWindowExt(const MetaScalewindowextRecord &record);
     void SelectObject(const MetaSelectobjectRecord &record);
     void DeleteObject(const MetaDeleteobjectRecord &record);
+    void MoveTo(const MetaMovetoRecord &record);
+    void LineTo(const MetaLinetoRecord &record, QPainter &painter);
     qreal pageToDeviceX(qreal x) const;
     qreal pageToDeviceY(qreal y) const;
     qreal pageToDeviceRescaleX(qreal x) const;

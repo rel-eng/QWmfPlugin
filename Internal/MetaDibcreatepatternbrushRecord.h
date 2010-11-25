@@ -50,6 +50,7 @@ public:
     quint16 getColorUsage() const;
     QImage getImage() const;
     QImage getImage(const PaletteObject &palette) const;
+    bool isPaletteRequired() const;
 };
 
 #endif // METADIBCREATEPATTERNBRUSHRECORD_H

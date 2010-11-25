@@ -2458,3 +2458,15 @@ quint32 DeviceIndependentBitmapObject::getSizeInWords() const
     }
     return sizeInWords;
 }
+
+bool DeviceIndependentBitmapObject::isPaletteRequired() const
+{
+    if((this->colorUsage == DIB_PAL_COLORS) || (this->colorUsage == DIB_PAL_INDICES))
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}

@@ -26,6 +26,7 @@
 #include "GraphicsObject.h"
 #include "MetaCreatebrushindirectRecord.h"
 #include "MetaCreatepatternbrushRecord.h"
+#include "MetaDibcreatepatternbrushRecord.h"
 #include "PaletteObject.h"
 
 class GraphicsObjectBrush : public GraphicsObject
@@ -35,15 +36,18 @@ private:
     {
         EMPTY_BRUSH,
         INDIRECT_BRUSH,
-        PATTERN_BRUSH
+        PATTERN_BRUSH,
+        DIB_PATTERN_BRUSH
     };
     BrushType brushType;
     MetaCreatebrushindirectRecord indirectBrush;
     MetaCreatepatternbrushRecord patternBrush;
+    MetaDibcreatepatternbrushRecord dibPatternBrush;
 public:
     GraphicsObjectBrush();
     GraphicsObjectBrush(const MetaCreatebrushindirectRecord &record);
     GraphicsObjectBrush(const MetaCreatepatternbrushRecord &record);
+    GraphicsObjectBrush(const MetaDibcreatepatternbrushRecord &record);
     GraphicsObjectBrush(const GraphicsObjectBrush &rhs);
     virtual ~GraphicsObjectBrush();
     GraphicsObjectBrush &operator=(const GraphicsObjectBrush &rhs);
