@@ -245,6 +245,33 @@ void DeviceContext::LineTo(const MetaLinetoRecord &record, QPainter &painter)
     painter.drawLine(this->currentPoint, QPointF(lineToX, lineToY));
 }
 
+void DeviceContext::SetBkColor(const MetaSetbkcolorRecord &record, QPainter &painter)
+{
+    painter.setBackground(QBrush(QColor(record.getColor()), Qt::SolidPattern));
+}
+
+void DeviceContext::SetBkMode(const MetaSetbkmodeRecord &record, QPainter &painter)
+{
+    switch(record.getBkMode())
+    {
+    case TRANSPARENT:
+        painter.setBackgroundMode(Qt::TransparentMode);
+        break;
+    case OPAQUE:
+        painter.setBackgroundMode(Qt::OpaqueMode);
+        break;
+    default:
+        painter.setBackgroundMode(Qt::OpaqueMode);
+    }
+}
+
+void DeviceContext::Rectangle(const MetaRectangleRecord &record, QPainter &painter)
+{
+    painter.setPen(this->getSelectedPen());
+    painter.setBrush(this->getSelectedBrush());
+    painter.drawRect(QRectF(QPointF(this->pageToDeviceX(record.getRect().left()), this->pageToDeviceY(record.getRect().top())), QPointF(this->pageToDeviceX(record.getRect().right()), this->pageToDeviceY(record.getRect().bottom()))));
+}
+
 qreal DeviceContext::pageToDeviceX(qreal x) const
 {
     return ((x - windowOriginX) * (viewportExtentX / windowExtentX)) + viewportOriginX;

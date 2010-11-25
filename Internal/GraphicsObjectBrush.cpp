@@ -92,9 +92,7 @@ QBrush GraphicsObjectBrush::getBrush() const
         {
             throw std::runtime_error("Brush requires palette");
         }
-        QBrush result(Qt::TexturePattern);
-        result.setTextureImage(this->patternBrush.getPattern());
-        return result;
+        return QBrush(this->patternBrush.getPattern());
     }
     else
     {
@@ -166,9 +164,7 @@ QBrush GraphicsObjectBrush::getBrush() const
                 {
                     throw std::runtime_error("Brush requires palette");
                 }
-                QBrush result(Qt::TexturePattern);
-                result.setTextureImage(this->dibPatternBrush.getImage());
-                return result;
+                return QBrush(this->dibPatternBrush.getImage());
             }
             else
             {
@@ -182,9 +178,7 @@ QBrush GraphicsObjectBrush::getBrush(const PaletteObject &palette) const
 {
     if(this->brushType == PATTERN_BRUSH)
     {
-        QBrush result(Qt::TexturePattern);
-        result.setTextureImage(this->patternBrush.getPattern(palette));
-        return result;
+        return QBrush(this->patternBrush.getPattern(palette));
     }
     else
     {
@@ -252,9 +246,7 @@ QBrush GraphicsObjectBrush::getBrush(const PaletteObject &palette) const
         {
             if(this->brushType == DIB_PATTERN_BRUSH)
             {
-                QBrush result(Qt::TexturePattern);
-                result.setTextureImage(this->dibPatternBrush.getImage(palette));
-                return result;
+                return QBrush(this->dibPatternBrush.getImage(palette));
             }
             else
             {

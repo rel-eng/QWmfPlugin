@@ -105,6 +105,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
 {
     DeviceContext deviceContext(static_cast<size_t>(headerRecord.getNumberOfObjects()), placeableRecord);
     QPainter painter(&outputImage);
+    painter.fillRect(0, 0, qAbs(placeableRecord.getRight() - placeableRecord.getLeft()), qAbs(placeableRecord.getBottom() - placeableRecord.getTop()), QColor(255,255,255));
     for(int recordIndex = 0; recordIndex < recordLoader.getRecordsCount(); recordIndex++)
     {
         QSharedPointer<MetafileRecord> currentRecord = recordLoader.getRecord(recordIndex);
@@ -117,6 +118,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_SETPALENTRIES & 0x00FF):
             break;
         case (META_SETBKMODE & 0x00FF):
+            deviceContext.SetBkMode(currentRecord.dynamicCast<MetaSetbkmodeRecord>().operator *(), painter);
             break;
         case (META_SETMAPMODE & 0x00FF):
             deviceContext.SetMapMode(currentRecord.dynamicCast<MetaSetmapmodeRecord>().operator *());
@@ -141,6 +143,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_SETLAYOUT & 0x00FF):
             break;
         case (META_SETBKCOLOR & 0x00FF):
+            deviceContext.SetBkColor(currentRecord.dynamicCast<MetaSetbkcolorRecord>().operator *(), painter);
             break;
         case (META_SETTEXTCOLOR & 0x00FF):
             break;
@@ -207,6 +210,7 @@ void MetafilePlayer::playMetafile(const MetaPlaceableRecord &placeableRecord, co
         case (META_EXTFLOODFILL & 0x00FF):
             break;
         case (META_RECTANGLE & 0x00FF):
+            deviceContext.Rectangle(currentRecord.dynamicCast<MetaRectangleRecord>().operator *(), painter);
             break;
         case (META_SETPIXEL & 0x00FF):
             break;

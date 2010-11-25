@@ -49,6 +49,9 @@
 #include "MetaDeleteobjectRecord.h"
 #include "MetaMovetoRecord.h"
 #include "MetaLinetoRecord.h"
+#include "MetaSetbkcolorRecord.h"
+#include "MetaSetbkmodeRecord.h"
+#include "MetaRectangleRecord.h"
 #include "GraphicsObject.h"
 #include "GraphicsObjectBrush.h"
 #include "GraphicsObjectFont.h"
@@ -105,6 +108,9 @@ public:
     void DeleteObject(const MetaDeleteobjectRecord &record);
     void MoveTo(const MetaMovetoRecord &record);
     void LineTo(const MetaLinetoRecord &record, QPainter &painter);
+    void SetBkColor(const MetaSetbkcolorRecord &record, QPainter &painter);
+    void SetBkMode(const MetaSetbkmodeRecord &record, QPainter &painter);
+    void Rectangle(const MetaRectangleRecord &record, QPainter &painter);
     qreal pageToDeviceX(qreal x) const;
     qreal pageToDeviceY(qreal y) const;
     qreal pageToDeviceRescaleX(qreal x) const;
